@@ -162,6 +162,24 @@ return array(
                  ),
              ),
              array(
+                 'label' => 'Produkty',
+                 'route' => 'fake',
+                 'class' => 'fa fa-cubes',
+                 'id'    => 4,
+                 'pages' => array(
+                     array(
+                         'label' => 'Lista produktów',
+                         'route' => 'product-list',
+                         'visibleInPrimary' => true
+                     ),
+//                     array(
+//                         'label' => 'Edycja menu',
+//                         'route' => 'menu-edit',
+//                         'visibleInPrimary' => false
+//                     ),
+                 ),
+             ),
+             array(
                  'label' => 'Użytkownicy',
                  'route' => 'fake',
                  'class' => 'fa fa-users',
