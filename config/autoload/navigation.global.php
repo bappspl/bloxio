@@ -57,126 +57,177 @@ return array(
                      ),
                  ),
              ),
+//             array(
+//                 'label' => 'Wpisy',
+//                 'route' => 'fake-post',
+//                 'class' => 'fa fa-quote-right',
+//                 'id'    => 2,
+//                 'pages' => array(
+//                     array(
+//                         'label' => 'Lista newsów',
+//                         'route' => 'post-list',
+//                         'params' => array('category' => 'news'),
+//                         'visibleInPrimary' => true
+//                     ),
+//                     array(
+//                         'label' => 'Tworzenie newsa',
+//                         'route' => 'post-list/post-create',
+//                         'params' => array('category' => 'news'),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Edycja newsa',
+//                         'route' => 'post-list/post-edit',
+//                         'params' => array('category' => 'news'),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Podgląd newsa',
+//                         'route' => 'post-list/post-preview',
+//                         'params' => array('category' => 'news'),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Lista referencji',
+//                         'route' => 'post-list',
+//                         'params' => array('category' => 'testimonials'),
+//                         'visibleInPrimary' => true
+//                     ),
+//                     array(
+//                         'label' => 'Tworzenie referencji',
+//                         'route' => 'post-list/post-create',
+//                         'params' => array('category' => 'testimonials'),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Edycja referencji',
+//                         'route' => 'post-list/post-edit',
+//                         'params' => array('category' => 'testimonials'),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Podgląd referencji',
+//                         'route' => 'post-list/post-preview',
+//                         'params' => array('category' => 'testimonials'),
+//                         'visibleInPrimary' => false
+//                     ),
+//                 ),
+//             ),
+//             array(
+//                 'label' => 'Slider',
+//                 'route' => 'slider-main',
+//                 'class' => 'fa fa-picture-o',
+//                 'id'    => 2,
+//                 'pages' => array(
+//                     array(
+//                         'label' => 'Dodaj nowy',
+//                         'route' => 'slider/create',
+//                         'visibleInPrimary' => true
+//                     ),
+//                     array(
+//                         'label' => 'Lista sliderów',
+//                         'route' => 'slider',
+//                         'visibleInPrimary' => true
+//                     ),
+//                     array(
+//                         'label' => 'Edycja slidera',
+//                         'route' => 'slider/edit',
+//                         'params' => array(),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Usuwanie slidera',
+//                         'route' => 'slider/delete',
+//                         'params' => array(),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Lista elementów',
+//                         'route' => 'slider/items',
+//                         'params' => array(),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Dodaj nowy element',
+//                         'route' => 'slider/items/create',
+//                         'params' => array(),
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Edycja elementu',
+//                         'route' => 'slider/items/edit',
+//                         'params' => array(),
+//                         'visibleInPrimary' => false
+//                     ),
+//                 ),
+//             ),
              array(
-                 'label' => 'Wpisy',
-                 'route' => 'fake-post',
-                 'class' => 'fa fa-quote-right',
-                 'id'    => 2,
+                 'label' => 'Klienci',
+                 'route' => 'fake-client',
+                 'class' => 'fa fa-child',
+                 'id'    => 4,
                  'pages' => array(
                      array(
-                         'label' => 'Lista newsów',
-                         'route' => 'post-list',
-                         'params' => array('category' => 'news'),
+                         'label' => 'Tworzenie klienta',
+                         'route' => 'client-list/create-client',
                          'visibleInPrimary' => true
                      ),
                      array(
-                         'label' => 'Tworzenie newsa',
-                         'route' => 'post-list/post-create',
-                         'params' => array('category' => 'news'),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Edycja newsa',
-                         'route' => 'post-list/post-edit',
-                         'params' => array('category' => 'news'),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Podgląd newsa',
-                         'route' => 'post-list/post-preview',
-                         'params' => array('category' => 'news'),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Lista referencji',
-                         'route' => 'post-list',
-                         'params' => array('category' => 'testimonials'),
+                         'label' => 'Lista klientów',
+                         'route' => 'client-list',
                          'visibleInPrimary' => true
                      ),
                      array(
-                         'label' => 'Tworzenie referencji',
-                         'route' => 'post-list/post-create',
-                         'params' => array('category' => 'testimonials'),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Edycja referencji',
-                         'route' => 'post-list/post-edit',
-                         'params' => array('category' => 'testimonials'),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Podgląd referencji',
-                         'route' => 'post-list/post-preview',
-                         'params' => array('category' => 'testimonials'),
+                         'label' => 'Edycja klienta',
+                         'route' => 'client-list/edit-client',
                          'visibleInPrimary' => false
                      ),
                  ),
              ),
              array(
-                 'label' => 'Slider',
-                 'route' => 'slider-main',
-                 'class' => 'fa fa-picture-o',
-                 'id'    => 2,
-                 'pages' => array(
-                     array(
-                         'label' => 'Dodaj nowy',
-                         'route' => 'slider/create',
-                         'visibleInPrimary' => true
-                     ),
-                     array(
-                         'label' => 'Lista sliderów',
-                         'route' => 'slider',
-                         'visibleInPrimary' => true
-                     ),
-                     array(
-                         'label' => 'Edycja slidera',
-                         'route' => 'slider/edit',
-                         'params' => array(),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Usuwanie slidera',
-                         'route' => 'slider/delete',
-                         'params' => array(),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Lista elementów',
-                         'route' => 'slider/items',
-                         'params' => array(),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Dodaj nowy element',
-                         'route' => 'slider/items/create',
-                         'params' => array(),
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Edycja elementu',
-                         'route' => 'slider/items/edit',
-                         'params' => array(),
-                         'visibleInPrimary' => false
-                     ),
-                 ),
-             ),
-             array(
-                 'label' => 'Produkty',
-                 'route' => 'fake',
+                 'label' => 'Kategorie',
+                 'route' => 'fake-category',
                  'class' => 'fa fa-cubes',
                  'id'    => 4,
                  'pages' => array(
                      array(
-                         'label' => 'Lista produktów',
-                         'route' => 'product-list',
+                         'label' => 'Tworzenie kategorii',
+                         'route' => 'category-list/create-category',
                          'visibleInPrimary' => true
                      ),
-//                     array(
-//                         'label' => 'Edycja menu',
-//                         'route' => 'menu-edit',
-//                         'visibleInPrimary' => false
-//                     ),
+                     array(
+                         'label' => 'Lista kategorii',
+                         'route' => 'category-list',
+                         'visibleInPrimary' => true
+                     ),
+                     array(
+                         'label' => 'Edycja kategorii',
+                         'route' => 'category-list/edit-category',
+                         'visibleInPrimary' => false
+                     ),
+                 ),
+             ),
+             array(
+                 'label' => 'Realizacje',
+                 'route' => 'fake',
+                 'class' => 'fa fa-folder-open',
+                 'id'    => 4,
+                 'pages' => array(
+                     array(
+                         'label' => 'Tworzenie realizacji',
+                         'route' => 'realization-list/create-realization',
+                         'visibleInPrimary' => true
+                     ),
+                     array(
+                         'label' => 'Lista realizacji',
+                         'route' => 'realization-list',
+                         'visibleInPrimary' => true
+                     ),
+                     array(
+                         'label' => 'Edycja realizacji',
+                         'route' => 'realization-list/edit-realization',
+                         'visibleInPrimary' => false
+                     ),
                  ),
              ),
              array(

@@ -516,9 +516,9 @@ $(document).ready(function(){
 	
 	
 	/** BEGIN DATEPICKER **/
-//	if ($('.datepicker').length > 0){
-//		$('.datepicker').datepicker()
-//	}
+	if ($('.datepicker').length > 0){
+		$('.datepicker').datepicker()
+	}
 //
 //	if ($('#datepicker1').length > 0){
 //		var nowTemp = new Date();

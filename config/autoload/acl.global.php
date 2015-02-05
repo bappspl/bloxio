@@ -47,6 +47,15 @@ return array(
                 'CmsIr\Product\Controller\Product' => array(
                     'all'	=> 'superadmin',
                 ),
+                'CmsIr\Product\Controller\Category' => array(
+                    'all'	=> 'superadmin',
+                ),
+                'CmsIr\Product\Controller\Client' => array(
+                    'all'	=> 'superadmin',
+                ),
+                'CmsIr\Product\Controller\Realization' => array(
+                    'all'	=> 'superadmin',
+                ),
             )
         )
     )

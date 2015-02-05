@@ -1,4 +1,4 @@
-<?php if ($this->flashMessenger()->hasMessages()) : ?>
+<?php if ($this->flashMessenger()->hasMessages() || $this->flashMessenger()->hasErrorMessages()) : ?>
 
 <?php
     $flash = $this->flashMessenger();

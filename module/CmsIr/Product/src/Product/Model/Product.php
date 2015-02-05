@@ -12,6 +12,7 @@ class Product extends Model
     protected $url;
     protected $main_photo;
     protected $client_id;
+    protected $category_id;
     protected $description;
 
     public function exchangeArray($data)
@@ -23,7 +24,24 @@ class Product extends Model
         $this->url = (!empty($data['url'])) ? $data['url'] : null;
         $this->main_photo = (!empty($data['main_photo'])) ? $data['main_photo'] : null;
         $this->client_id = (!empty($data['client_id'])) ? $data['client_id'] : null;
+        $this->category_id = (!empty($data['category_id'])) ? $data['category_id'] : null;
         $this->description = (!empty($data['description'])) ? $data['description'] : null;
+    }
+
+    /**
+     * @param mixed $category_id
+     */
+    public function setCategoryId($category_id)
+    {
+        $this->category_id = $category_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategoryId()
+    {
+        return $this->category_id;
     }
 
     /**
