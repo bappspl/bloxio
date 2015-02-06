@@ -2,6 +2,7 @@
 namespace CmsIr\Product\Model;
 
 use CmsIr\System\Model\Model;
+use CmsIr\System\Util\Inflector;
 
 class Product extends Model
 {
@@ -11,7 +12,7 @@ class Product extends Model
     protected $date;
     protected $url;
     protected $main_photo;
-    protected $client_id;
+    protected $realization_id;
     protected $category_id;
     protected $description;
 
@@ -19,11 +20,11 @@ class Product extends Model
     {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
-        $this->slug = (!empty($data['slug'])) ? $data['slug'] : null;
+        $this->slug = (!empty($data['slug'])) ? $data['slug'] : Inflector::slugify($this->name);
         $this->date = (!empty($data['date'])) ? $data['date'] : null;
         $this->url = (!empty($data['url'])) ? $data['url'] : null;
         $this->main_photo = (!empty($data['main_photo'])) ? $data['main_photo'] : null;
-        $this->client_id = (!empty($data['client_id'])) ? $data['client_id'] : null;
+        $this->realization_id = (!empty($data['realization_id'])) ? $data['realization_id'] : null;
         $this->category_id = (!empty($data['category_id'])) ? $data['category_id'] : null;
         $this->description = (!empty($data['description'])) ? $data['description'] : null;
     }
@@ -45,19 +46,19 @@ class Product extends Model
     }
 
     /**
-     * @param mixed $client_id
+     * @param mixed $realization_id
      */
-    public function setClientId($client_id)
+    public function setRealizationId($realization_id)
     {
-        $this->client_id = $client_id;
+        $this->realization_id = $realization_id;
     }
 
     /**
      * @return mixed
      */
-    public function getClientId()
+    public function getRealizationId()
     {
-        return $this->client_id;
+        return $this->realization_id;
     }
 
     /**

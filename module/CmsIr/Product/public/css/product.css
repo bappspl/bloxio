@@ -36,3 +36,6 @@
 .has-error .form-control {
     border-color: #a94442 !important;
 }
+.margin-left {
+    margin-left: 10px;
+}

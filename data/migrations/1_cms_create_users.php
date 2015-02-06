@@ -19,6 +19,10 @@ class CmsCreateUsers extends AbstractMigration
              ->addColumn('filename', 'string' , array('null' => true))
              ->addColumn('registration_date', 'datetime')
              ->addColumn('registration_token', 'string')
+             ->addColumn('position', 'string', array('null' => true))
+             ->addColumn('facebook', 'string', array('null' => true))
+             ->addColumn('twitter', 'string', array('null' => true))
+             ->addColumn('google', 'string', array('null' => true))
              ->save();
 
         $this->insertValues('cms_users', array(
@@ -32,7 +36,11 @@ class CmsCreateUsers extends AbstractMigration
                 'active' => 'integer',
                 'filename' => 'string',
                 'registration_date' => 'string',
-                'registration_token' => 'string'
+                'registration_token' => 'string',
+                'position' => 'string',
+                'facebook' => 'string',
+                'twitter' => 'string',
+                'google' => 'string',
             )
         );
     }

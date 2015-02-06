@@ -48,10 +48,87 @@ class ProductTable extends ModelTable
                 $tmp[] = $row->$column();
             }
 
-            $tmp[] = '<a href="product/edit/'.$row->getId().'" class="btn btn-primary" data-toggle="tooltip" title="Edycja"><i class="fa fa-pencil"></i></a> ';
+            $tmp[] = '<a href="products/edit/'.$row->getId().'" class="btn btn-primary" data-toggle="tooltip" title="Edycja"><i class="fa fa-pencil"></i></a> ' .
+                     '<a href="products/delete/'.$row->getId().'" id="'.$row->getId().'" class="btn btn-danger" data-toggle="tooltip" title="Usuwanie"><i class="fa fa-trash-o"></i></a>';
+
             array_push($dataArray, $tmp);
         }
         return $dataArray;
     }
 
+    public function getProductDatatables($columns, $data, $realizationId)
+    {
+        $displayFlag = false;
+
+        $allRows = $this->getBy(array('realization_id' => $realizationId));
+        $countAllRows = count($allRows);
+
+        $trueOffset = (int) $data->iDisplayStart;
+        $trueLimit = (int) $data->iDisplayLength;
+
+        $sorting = array('id', 'asc');
+        if(isset($data->iSortCol_0)) {
+            $sorting = $this->getSortingColumnDir($columns, $data);
+        }
+
+        $where = array();
+        if ($data->sSearch != '') {
+            $where = array(
+                new Predicate\PredicateSet(
+                    $this->getFilterPredicate($columns, $data),
+                    Predicate\PredicateSet::COMBINED_BY_OR
+                ),
+            );
+            $where['realization_id'] = $realizationId;
+            $displayFlag = true;
+        } else {
+            $where['realization_id'] = $realizationId;
+        }
+
+        $filteredRows = $this->tableGateway->select(function(Select $select) use ($trueLimit, $trueOffset, $sorting, $where){
+            $select
+                ->where($where)
+                ->order($sorting[0] . ' ' . $sorting[1])
+                ->limit($trueLimit)
+                ->offset($trueOffset);
+        });
+
+        $dataArray = $this->getDataToDisplay($filteredRows, $columns);
+
+        if($displayFlag == true) {
+            $countFilteredRows = $filteredRows->count();
+        } else {
+            $countFilteredRows = $countAllRows;
+        }
+
+        return array('iTotalRecords' => $countAllRows, 'iTotalDisplayRecords' => $countFilteredRows, 'aaData' => $dataArray);
+    }
+
+    public function save(Product $product)
+    {
+        $data = array(
+            'name' => $product->getName(),
+            'slug' => $product->getSlug(),
+            'date' => $product->getDate(),
+            'url' => $product->getUrl(),
+            'main_photo' => $product->getMainPhoto(),
+            'realization_id' => $product->getRealizationId(),
+            'category_id' => $product->getCategoryId(),
+            'description' => $product->getDescription(),
+        );
+
+        $id = (int) $product->getId();
+        if ($id == 0) {
+            $this->tableGateway->insert($data);
+            $id = $this->tableGateway->lastInsertValue;
+
+        } else {
+            if ($this->getOneBy(array('id' => $id))) {
+                $this->tableGateway->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('ProductFile id does not exist');
+            }
+        }
+        return $id;
+    }
 }

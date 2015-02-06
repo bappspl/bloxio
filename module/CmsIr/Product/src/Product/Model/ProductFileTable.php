@@ -42,6 +42,7 @@ class ProductFileTable extends ModelTable
             'filename' => $productFile->getFilename(),
             'product_id' => $productFile->getProductId(),
             'size' => $productFile->getSize(),
+            'mime_type' => $productFile->getMimeType(),
         );
 
         $id = (int) $productFile->getId();

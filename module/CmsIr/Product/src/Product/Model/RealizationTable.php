@@ -48,7 +48,8 @@ class RealizationTable extends ModelTable
                 $tmp[] = $row->$column();
             }
 
-            $tmp[] = '<a href="realization/edit/'.$row->getId().'" class="btn btn-primary" data-toggle="tooltip" title="Edycja"><i class="fa fa-pencil"></i></a> ' .
+            $tmp[] = '<a href="realization/'.$row->getId().'/products" class="btn btn-info" data-toggle="tooltip" title="Produkty"><i class="fa fa-list-ul"></i></a> ' .
+                     '<a href="realization/edit/'.$row->getId().'" class="btn btn-primary" data-toggle="tooltip" title="Edycja"><i class="fa fa-pencil"></i></a> ' .
                      '<a href="realization/delete/'.$row->getId().'" id="'.$row->getId().'" class="btn btn-danger" data-toggle="tooltip" title="Usuwanie"><i class="fa fa-trash-o"></i></a>';
 
             array_push($dataArray, $tmp);

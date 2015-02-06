@@ -1,4 +1,13 @@
 <?php
+$currentUrl = $_SERVER['REQUEST_URI'];
+if(strpos($currentUrl, 'realization/') !== false)
+{
+    $currentUrlArray = explode('/', $currentUrl);
+    $realizationId = $currentUrlArray[3];
+} else
+{
+    $realizationId = 0;
+}
 
 return array(
      'navigation' => array(
@@ -57,36 +66,36 @@ return array(
                      ),
                  ),
              ),
-//             array(
-//                 'label' => 'Wpisy',
-//                 'route' => 'fake-post',
-//                 'class' => 'fa fa-quote-right',
-//                 'id'    => 2,
-//                 'pages' => array(
-//                     array(
-//                         'label' => 'Lista newsów',
-//                         'route' => 'post-list',
-//                         'params' => array('category' => 'news'),
-//                         'visibleInPrimary' => true
-//                     ),
-//                     array(
-//                         'label' => 'Tworzenie newsa',
-//                         'route' => 'post-list/post-create',
-//                         'params' => array('category' => 'news'),
-//                         'visibleInPrimary' => false
-//                     ),
-//                     array(
-//                         'label' => 'Edycja newsa',
-//                         'route' => 'post-list/post-edit',
-//                         'params' => array('category' => 'news'),
-//                         'visibleInPrimary' => false
-//                     ),
-//                     array(
-//                         'label' => 'Podgląd newsa',
-//                         'route' => 'post-list/post-preview',
-//                         'params' => array('category' => 'news'),
-//                         'visibleInPrimary' => false
-//                     ),
+             array(
+                 'label' => 'Wpisy',
+                 'route' => 'fake-post',
+                 'class' => 'fa fa-quote-right',
+                 'id'    => 2,
+                 'pages' => array(
+                     array(
+                         'label' => 'Lista newsów',
+                         'route' => 'post-list',
+                         'params' => array('category' => 'news'),
+                         'visibleInPrimary' => true
+                     ),
+                     array(
+                         'label' => 'Tworzenie newsa',
+                         'route' => 'post-list/post-create',
+                         'params' => array('category' => 'news'),
+                         'visibleInPrimary' => false
+                     ),
+                     array(
+                         'label' => 'Edycja newsa',
+                         'route' => 'post-list/post-edit',
+                         'params' => array('category' => 'news'),
+                         'visibleInPrimary' => false
+                     ),
+                     array(
+                         'label' => 'Podgląd newsa',
+                         'route' => 'post-list/post-preview',
+                         'params' => array('category' => 'news'),
+                         'visibleInPrimary' => false
+                     ),
 //                     array(
 //                         'label' => 'Lista referencji',
 //                         'route' => 'post-list',
@@ -111,8 +120,81 @@ return array(
 //                         'params' => array('category' => 'testimonials'),
 //                         'visibleInPrimary' => false
 //                     ),
-//                 ),
-//             ),
+                 ),
+             ),
+             array(
+                 'label' => 'Newsletter',
+                 'route' => 'fake-newsletter',
+                 'class' => 'fa fa-envelope-o',
+                 'id'    => 4,
+                 'pages' => array(
+//                     array(
+//                         'label' => 'Wiadomości',
+//                         'route' => 'newsletter',
+//                         'visibleInPrimary' => true
+//                     ),
+//                     array(
+//                         'label' => 'Tworzenie wiadomości',
+//                         'route' => 'create-newsletter',
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Edycja wiadomości',
+//                         'route' => 'edit-newsletter',
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Podgląd wiadomości',
+//                         'route' => 'preview-newsletter',
+//                         'visibleInPrimary' => false
+//                     ),
+                     array(
+                         'label' => 'Subskrybenci',
+                         'route' => 'subscriber-list',
+                         'visibleInPrimary' => true
+                     ),
+                     array(
+                         'label' => 'Tworzenie subskrybenta',
+                         'route' => 'subscriber-list/create-subscriber',
+                         'visibleInPrimary' => false
+                     ),
+                     array(
+                         'label' => 'Edycja subskrybenta',
+                         'route' => 'subscriber-list/edit-subscriber',
+                         'visibleInPrimary' => false
+                     ),
+                     array(
+                         'label' => 'Podgląd subskrybenta',
+                         'route' => 'subscriber-list/preview-subscriber',
+                         'visibleInPrimary' => false
+                     ),
+//                     array(
+//                         'label' => 'Grupy subskrybentów',
+//                         'route' => 'subscriber-group',
+//                         'visibleInPrimary' => true,
+//                     ),
+//                     array(
+//                         'label' => 'Tworzenie grupy',
+//                         'route' => 'subscriber-group/create-group',
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Edycja grupy',
+//                         'route' => 'subscriber-group/edit-group',
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Podgląd grupy',
+//                         'route' => 'subscriber-group/preview-group',
+//                         'visibleInPrimary' => false
+//                     ),
+//                     array(
+//                         'label' => 'Ustawienia',
+//                         'route' => 'newsletter-settings',
+//                         'visibleInPrimary' => true
+//                     ),
+                 ),
+             ),
 //             array(
 //                 'label' => 'Slider',
 //                 'route' => 'slider-main',
@@ -209,7 +291,7 @@ return array(
              ),
              array(
                  'label' => 'Realizacje',
-                 'route' => 'fake',
+                 'route' => 'fake-realization',
                  'class' => 'fa fa-folder-open',
                  'id'    => 4,
                  'pages' => array(
@@ -227,6 +309,24 @@ return array(
                          'label' => 'Edycja realizacji',
                          'route' => 'realization-list/edit-realization',
                          'visibleInPrimary' => false
+                     ),
+                     array(
+                         'label' => 'Lista produktów realizacji',
+                         'route' => 'realization-list/product-list',
+                         'visibleInPrimary' => false,
+                         'params' => array('realization_id' => $realizationId),
+                         'pages' => array(
+                             array(
+                                 'label' => 'Tworzenie produktu',
+                                 'route' => 'realization-list/product-list/create-product',
+                                 'visibleInPrimary' => false,
+                             ),
+                             array(
+                                 'label' => 'Edycja produktu',
+                                 'route' => 'realization-list/product-list/edit-product',
+                                 'visibleInPrimary' => false,
+                             ),
+                         )
                      ),
                  ),
              ),
@@ -264,79 +364,6 @@ return array(
                          'params' => array(),
                          'visibleInPrimary' => false
                      )
-                 ),
-             ),
-             array(
-                 'label' => 'Newsletter',
-                 'route' => 'fake-newsletter',
-                 'class' => 'fa fa-envelope-o',
-                 'id'    => 4,
-                 'pages' => array(
-                     array(
-                         'label' => 'Wiadomości',
-                         'route' => 'newsletter',
-                         'visibleInPrimary' => true
-                     ),
-                     array(
-                         'label' => 'Tworzenie wiadomości',
-                         'route' => 'create-newsletter',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Edycja wiadomości',
-                         'route' => 'edit-newsletter',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Podgląd wiadomości',
-                         'route' => 'preview-newsletter',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Subskrybenci',
-                         'route' => 'subscriber-list',
-                         'visibleInPrimary' => true
-                     ),
-                     array(
-                         'label' => 'Tworzenie subskrybenta',
-                         'route' => 'subscriber-list/create-subscriber',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Edycja subskrybenta',
-                         'route' => 'subscriber-list/edit-subscriber',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Podgląd subskrybenta',
-                         'route' => 'subscriber-list/preview-subscriber',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Grupy subskrybentów',
-                         'route' => 'subscriber-group',
-                         'visibleInPrimary' => true,
-                     ),
-                     array(
-                         'label' => 'Tworzenie grupy',
-                         'route' => 'subscriber-group/create-group',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Edycja grupy',
-                         'route' => 'subscriber-group/edit-group',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Podgląd grupy',
-                         'route' => 'subscriber-group/preview-group',
-                         'visibleInPrimary' => false
-                     ),
-                     array(
-                         'label' => 'Ustawienia',
-                         'route' => 'newsletter-settings',
-                         'visibleInPrimary' => true
-                     ),
                  ),
              ),
          ),

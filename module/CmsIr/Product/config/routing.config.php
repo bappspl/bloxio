@@ -99,6 +99,65 @@ return array(
                     ),
                 ),
             ),
+            'product-list' => array(
+                'may_terminate' => true,
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/:realization_id/products',
+                    'defaults' => array(
+                        'module' => 'CmsIr\Product',
+                        'controller' => 'CmsIr\Product\Controller\Product',
+                        'action' => 'productList',
+                    ),
+                    'constraints' => array(
+                        'realization_id' => '[0-9]+'
+                    ),
+                ),
+                'child_routes' => array(
+                    'create-product' => array(
+                        'may_terminate' => true,
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'module' => 'CmsIr\Product',
+                                'controller' => 'CmsIr\Product\Controller\Product',
+                                'action' => 'createProduct',
+                            ),
+                        ),
+                    ),
+                    'edit-product' => array(
+                        'may_terminate' => true,
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/edit/:product_id',
+                            'defaults' => array(
+                                'module' => 'CmsIr\Product',
+                                'controller' => 'CmsIr\Product\Controller\Product',
+                                'action' => 'editProduct',
+                            ),
+                            'constraints' => array(
+                                'product_id' => '[0-9]+'
+                            ),
+                        ),
+                    ),
+                    'delete-product' => array(
+                        'may_terminate' => true,
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/delete/:product_id',
+                            'defaults' => array(
+                                'module' => 'CmsIr\Product',
+                                'controller' => 'CmsIr\Product\Controller\Product',
+                                'action' => 'deleteProduct',
+                            ),
+                            'constraints' => array(
+                                'product_id' => '[0-9]+'
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         ),
     ),
 
@@ -224,6 +283,48 @@ return array(
                 'module' => 'CmsIr\Product',
                 'controller' => 'CmsIr\Product\Controller\Client',
                 'action'     => 'upload',
+            ),
+            'constraints' => array(
+            ),
+        ),
+    ),
+
+    'upload-product-main' => array(
+        'type'    => 'Segment',
+        'options' => array(
+            'route'    => '/cms-ir/product/upload-main',
+            'defaults' => array(
+                'module' => 'CmsIr\Product',
+                'controller' => 'CmsIr\Product\Controller\Product',
+                'action'     => 'uploadMain',
+            ),
+            'constraints' => array(
+            ),
+        ),
+    ),
+
+    'upload-product-gallery' => array(
+        'type'    => 'Segment',
+        'options' => array(
+            'route'    => '/cms-ir/product/upload-gallery',
+            'defaults' => array(
+                'module' => 'CmsIr\Product',
+                'controller' => 'CmsIr\Product\Controller\Product',
+                'action'     => 'uploadGallery',
+            ),
+            'constraints' => array(
+            ),
+        ),
+    ),
+
+    'delete-photo' => array(
+        'type'    => 'Segment',
+        'options' => array(
+            'route'    => '/cms-ir/product/delete-photo',
+            'defaults' => array(
+                'module' => 'CmsIr\Product',
+                'controller' => 'CmsIr\Product\Controller\Product',
+                'action'     => 'deletePhoto',
             ),
             'constraints' => array(
             ),

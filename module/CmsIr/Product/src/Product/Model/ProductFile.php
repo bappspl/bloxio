@@ -9,6 +9,7 @@ class ProductFile extends Model
     protected $filename;
     protected $product_id;
     protected $size;
+    protected $mime_type;
 
     public function exchangeArray($data)
     {
@@ -16,6 +17,7 @@ class ProductFile extends Model
         $this->filename = (!empty($data['filename'])) ? $data['filename'] : null;
         $this->product_id = (!empty($data['product_id'])) ? $data['product_id'] : null;
         $this->size = (!empty($data['size'])) ? $data['size'] : null;
+        $this->mime_type = (!empty($data['mime_type'])) ? $data['mime_type'] : null;
     }
 
     /**
@@ -80,5 +82,21 @@ class ProductFile extends Model
     public function getSize()
     {
         return $this->size;
+    }
+
+    /**
+     * @param mixed $mime_type
+     */
+    public function setMimeType($mime_type)
+    {
+        $this->mime_type = $mime_type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMimeType()
+    {
+        return $this->mime_type;
     }
 }

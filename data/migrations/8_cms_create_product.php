@@ -13,9 +13,9 @@ class CmsCreateProduct extends AbstractMigration
 
         $this->table('dna_client', array())
             ->addColumn('name', 'string')
-            ->addColumn('filename', 'string')
+            ->addColumn('filename', 'string', array('null'=>true))
             ->addColumn('description', 'text', array('null'=>true))
-            ->addColumn('size', 'string')
+            ->addColumn('size', 'string', array('null'=>true))
             ->save();
 
         $this->table('dna_realization', array())
@@ -31,8 +31,8 @@ class CmsCreateProduct extends AbstractMigration
              ->addColumn('name', 'string')
              ->addColumn('slug', 'string')
              ->addColumn('date', 'date')
-             ->addColumn('url', 'string')
-             ->addColumn('main_photo', 'string')
+             ->addColumn('url', 'string', array('null'=>true))
+             ->addColumn('main_photo', 'string', array('null'=>true))
              ->addColumn('realization_id', 'integer')
              ->addColumn('category_id', 'integer')
              ->addColumn('description', 'string', array('null'=>true))
@@ -44,6 +44,7 @@ class CmsCreateProduct extends AbstractMigration
             ->addColumn('filename', 'string')
             ->addColumn('product_id', 'integer')
             ->addColumn('size', 'string')
+            ->addColumn('mime_type', 'string')
             ->addForeignKey('product_id', 'dna_product', 'id', array('delete' => 'CASCADE', 'update' => 'NO_ACTION'))
             ->save();
 

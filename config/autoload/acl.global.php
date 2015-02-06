@@ -17,6 +17,9 @@ return array(
                 ),
 
                 // CMS
+                'CmsIr\System\Controller\System' => array(
+                    'all'	=> 'superadmin',
+                ),
 				'CmsIr\Authentication\Controller\Index' => array(
 					'all'	=> 'guest',
  				),

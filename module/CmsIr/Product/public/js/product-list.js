@@ -2,6 +2,8 @@ $(function () {
 
     /** BEGIN DATATABLE EXAMPLE **/
     if ($('#datatable-product').length > 0){
+        var realizationId = $('#realizationId').val();
+
         $('#datatable-product').dataTable({
             "oLanguage": {
                 "sProcessing":   "Przetwarzanie...",
@@ -29,7 +31,7 @@ $(function () {
             },
             "bProcessing": true,
             "bServerSide": true,
-            "sAjaxSource": "/cms-ir/product",
+            "sAjaxSource": "/cms-ir/realization/" + realizationId + "/products",
             "sServerMethod": "POST",
             "bPaginate":true,
             "bSortable": true,
@@ -42,9 +44,10 @@ $(function () {
             ]
         });
         // delete modal
-        $('#datatable-post tbody').on('click', '.btn-danger', function (e) {
+        $('#datatable-product tbody').on('click', '.btn-danger', function (e) {
             e.preventDefault();
             var entityId = $(this).attr('id');
+            var realizationId = $('#realizationId').val();
             $('#deleteModal').on('show.bs.modal', function () {
 
                 $('#deleteModal form input').click(function (ev) {
@@ -54,7 +57,7 @@ $(function () {
 
                     $.ajax({
                         type: "POST",
-                        url: "/cms-ir/product/delete/" +entityId,
+                        url: "/cms-ir/realization/" + realizationId + "/products/delete/" +entityId,
                         dataType : 'json',
                         data: {
                             modal: true,

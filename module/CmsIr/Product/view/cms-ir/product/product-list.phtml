@@ -1,4 +1,6 @@
 <?php echo $this->partial('partial/flashmessages-product'); ?>
+    <input type="hidden" id="realizationId" value="<?php echo $realizationId; ?>" />
+
     <!-- BEGIN DATA TABLE -->
     <div class="the-box">
         <div class="table-responsive">
@@ -7,14 +9,15 @@
                 <tr>
                     <th>Nazwa</th>
                     <th>Data</th>
-                    <th>Akcje</th>
+                    <th class="action-column">Akcje</th>
                 </tr>
                 </thead>
             </table>
 
             <div class="row">
                 <div class="col-sm-12">
-                    <a class="btn btn-facebook pull-right" href="#">Dodaj nowy</a>
+                    <a class="btn btn-facebook pull-right margin-left" href="<?php echo $this->url('realization-list/product-list/create-product', array('realization_id' => $realizationId)); ?>">Dodaj nowy</a>
+                    <a class="btn btn-default pull-right" href="<?php echo $this->url('realization-list'); ?>">Powrót</a>
                 </div>
             </div>
 
