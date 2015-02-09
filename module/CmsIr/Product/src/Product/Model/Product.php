@@ -15,6 +15,8 @@ class Product extends Model
     protected $realization_id;
     protected $category_id;
     protected $description;
+    protected $realization;
+    protected $category;
 
     public function exchangeArray($data)
     {
@@ -27,6 +29,38 @@ class Product extends Model
         $this->realization_id = (!empty($data['realization_id'])) ? $data['realization_id'] : null;
         $this->category_id = (!empty($data['category_id'])) ? $data['category_id'] : null;
         $this->description = (!empty($data['description'])) ? $data['description'] : null;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $realization
+     */
+    public function setRealization($realization)
+    {
+        $this->realization = $realization;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRealization()
+    {
+        return $this->realization;
     }
 
     /**

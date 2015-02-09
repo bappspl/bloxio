@@ -1,0 +1,49 @@
+<div class="page-wrapper clearfix" style="padding-top: 0;">
+    <div class="container">
+
+        <div class="page-title">
+            <h1 class="site-title">Meet our team.</h1>
+            <p class="site-desc">Time to meet, who build Bloxo!</p>
+        </div>
+        <?php if(isset($users)): ?>
+        <div class="row">
+            <?php /* @var $firstUser \CmsIr\Users\Model\Users */ ?>
+            <?php $firstUser = reset($users); ?>
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="media entry">
+                    <div data-toggle="tooltip" data-placement="top" title="<?php echo $firstUser->getName() . ' ' . $firstUser->getSurname() . ' - ' . $firstUser->getPosition(); ?>">
+                        <img src="<?php echo $this->url('thumb', array('entity' => 'users', 'size' => '360x364', 'filename' => $firstUser->getFilename())); ?>" alt="" class="img-responsive">
+                        <div class="magnifier">
+                            <div class="buttons">
+                                <a href="<?php echo $firstUser->getFacebook(); ?>" title=""><i class="icon-facebook"></i></a>
+                                <a href="<?php echo $firstUser->getTwitter(); ?>" title=""><i class="icon-twitter"></i></a>
+                                <a href="<?php echo $firstUser->getGoogle(); ?>" title=""><i class="icon-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end media -->
+            </div><!-- end col -->
+
+            <?php /* @var $user \CmsIr\Users\Model\Users */ ?>
+            <?php array_shift($users);  ?>
+            <?php foreach($users as $user): ?>
+            <div class="col-lg-2 col-md-4 col-xs-12">
+                <div class="media entry">
+                    <div data-toggle="tooltip" data-placement="top" title="<?php echo $user->getName() . ' ' . $user->getSurname() . ' - ' . $user->getPosition(); ?>">
+                        <img src="<?php echo $this->url('thumb', array('entity' => 'users', 'size' => '165x167', 'filename' => $user->getFilename())); ?>" alt="" class="img-responsive">
+                        <div class="magnifier">
+                            <div class="buttons">
+                                <a href="<?php echo $firstUser->getFacebook(); ?>" title=""><i class="icon-facebook"></i></a>
+                                <a href="<?php echo $firstUser->getTwitter(); ?>" title=""><i class="icon-twitter"></i></a>
+                                <a href="<?php echo $firstUser->getGoogle(); ?>" title=""><i class="icon-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end media -->
+            </div><!-- end col -->
+            <?php endforeach; ?>
+        </div><!-- end col -->
+        <?php endif; ?>
+
+    </div><!-- end container -->
+</div><!-- end portfolio -->

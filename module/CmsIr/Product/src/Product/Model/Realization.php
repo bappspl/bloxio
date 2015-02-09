@@ -12,6 +12,7 @@ class Realization extends Model
     protected $description;
     protected $date;
     protected $client_id;
+    protected $client;
 
     public function exchangeArray($data)
     {
@@ -21,6 +22,22 @@ class Realization extends Model
         $this->description = (!empty($data['description'])) ? $data['description'] : null;
         $this->date = (!empty($data['date'])) ? $data['date'] : null;
         $this->client_id = (!empty($data['client_id'])) ? $data['client_id'] : null;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 
     /**

@@ -1,0 +1,65 @@
+<div class="page-wrapper clearfix">
+    <div class="container">
+
+        <div class="row gallery">
+            <?php /* @var $product \CmsIr\Product\Model\Product */ ?>
+            <?php if($product->getMainPhoto()): ?>
+                <div class="single-work GrayScale col-lg-6 col-md-6 col-xs-12">
+                    <a href="/files/product/<?php echo $product->getMainPhoto(); ?>" data-gal="prettyPhoto[product-gallery]"><img src="<?php echo $this->url('thumb', array('entity' => 'product', 'size' => '570x428', 'filename' => $product->getMainPhoto())); ?>" alt="" class="img-responsive"></a>
+                </div><!-- end col -->
+            <?php endif; ?>
+
+            <?php if($productFiles): ?>
+                <?php /* @var $file \CmsIr\Product\Model\ProductFile */ ?>
+                <?php foreach($productFiles as $file): ?>
+                    <div class="single-work GrayScale col-lg-3 col-md-6 col-xs-12">
+                        <a href="/files/product/<?php echo $file->getFilename(); ?>" data-gal="prettyPhoto[product-gallery]"><img src="<?php echo $this->url('thumb', array('entity' => 'product', 'size' => '285x214', 'filename' => $file->getFilename())); ?>" alt="" class="img-responsive"></a>
+                    </div><!-- end col -->
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+        </div><!-- end row -->
+
+        <div class="row project-desc">
+            <div class="col-lg-8 col-md-8 col-xs-12">
+                <div class="details">
+                    <h2><?php echo $product->getName(); ?></h2>
+                    <?php echo $product->getDescription(); ?>
+                </div><!-- end details -->
+            </div><!-- end col -->
+            <div class="col-lg-4 col-md-4 col-xs-12">
+                <div class="details">
+                    <?php
+                        $realization = $product->getRealization();
+                        $realizationName = $realization->getName();
+                        $realizationClient = $realization->getClient();
+
+                        $clientName = $realizationClient->getName();
+                        $clientSlug = $realizationClient->getSlug();
+                    ?>
+                    <h2>Szczegóły projektu</h2>
+                    <ul>
+                        <li>Utworzono : <?php echo $product->getDate(); ?></li>
+                        <li>Klient : <a href="<?php echo $this->url('viewPage', array('slug' => 'klient', 'post' => $clientSlug)); ?>"><?php echo $clientName; ?></a></li>
+                        <li>Realizacja : <?php echo $realizationName; ?></a></li>
+                        <li>Kategoria : <?php echo $product->getCategory(); ?></a></li>
+                    </ul>
+                    <?php if($product->getUrl()): ?>
+                        <a href="<?php echo $product->getUrl(); ?>" target="_blank" class="cbp-l-inline-view">Zobacz projekt</a>
+                    <?php endif; ?>
+                </div><!-- end details -->
+            </div><!-- end col -->
+
+            <div class="col-lg-12">
+                <div class="next-prev text-center pull-left clearfix">
+                    <nav>
+                        <ul class="pager">
+                            <li><a href="#"><i class="icon-left-open-1"></i></a></li>
+                            <li><a href="#"><i class="icon-right-open-1"></i></a></li>
+                        </ul>
+                    </nav>
+                </div><!-- end next prev -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end portfolio -->

@@ -1,0 +1,55 @@
+<div class="portfolio-wrapper clearfix">
+    <div class="container">
+        <div id="filters-container" class="cbp-l-filters-button">
+            <?php /* @var $category \CmsIr\Product\Model\Category */ ?>
+            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
+                Wszystkie <div class="cbp-filter-counter"></div>
+            </div>
+            <?php  foreach($categories as $category): ?>
+
+                <div data-filter=".<?php echo $category->getId(); ?>" class="cbp-filter-item">
+                    <?php echo $category->getName(); ?> <div class="cbp-filter-counter"></div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div id="grid-container" class="cbp-l-grid-gallery">
+            <ul>
+                <?php /* @var $product \CmsIr\Product\Model\Product */ $i = 0; ?>
+                <?php foreach($products as $product): ?>
+                    <?php
+                        $name = $product->getName();
+                        $filename = $product->getMainPhoto();
+                        $realizationId = $product->getRealizationId();
+                        $categoryId = $product->getCategoryId();
+                    ?>
+                    <li class="cbp-item  <?php echo $categoryId; ?>">
+                        <a href="<?php echo $product->getId(); ?>" class="cbp-caption cbp-singlePageInline"
+                           data-title="<?php echo $name; ?>">
+                            <div class="cbp-caption-defaultWrap GrayScale">
+                                <img src="<?php echo $this->url('thumb', array('entity' => 'product', 'size' => '373x280', 'filename' => $filename)); ?>" alt="<?php echo $name; ?>">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title"><?php echo $name; ?></div>
+                                        <div class="cbp-l-caption-desc"><?php echo $product->getRealization() . ', ' . $product->getCategory(); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                <?php $i++; endforeach; ?>
+            </ul>
+        </div>
+        <?php if($countProducts == $i): ?>
+            <div class="cbp-l-loadMore-button">
+                <p class="cbp-l-loadMore-button-link">To już wszystko</p>
+            </div>
+        <?php else: ?>
+            <div class="cbp-l-loadMore-button">
+                <p class="cbp-l-loadMore-button-link" id="2">Pokaż więcej</p>
+            </div>
+        <?php endif; ?>
+
+    </div><!-- end container -->
+</div><!-- end portfolio -->

@@ -13,6 +13,7 @@ class CmsCreateProduct extends AbstractMigration
 
         $this->table('dna_client', array())
             ->addColumn('name', 'string')
+            ->addColumn('slug', 'string')
             ->addColumn('filename', 'string', array('null'=>true))
             ->addColumn('description', 'text', array('null'=>true))
             ->addColumn('size', 'string', array('null'=>true))

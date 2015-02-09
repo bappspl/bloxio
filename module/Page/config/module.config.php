@@ -14,21 +14,13 @@ return array(
         'template_map' => array(
             'layout/home' => __DIR__ . '/../view/layout/home.phtml',
             'partial/layout/header' => __DIR__ . '/../view/partial/layout/header.phtml',
-            'partial/layout/header-navbar' => __DIR__ . '/../view/partial/layout/header-navbar.phtml',
             'partial/layout/footer' => __DIR__ . '/../view/partial/layout/footer.phtml',
-            'partial/layout/footer-about' => __DIR__ . '/../view/partial/layout/footer-about.phtml',
-            'partial/layout/footer-contact' => __DIR__ . '/../view/partial/layout/footer-contact.phtml',
-            'partial/layout/footer-navigation' => __DIR__ . '/../view/partial/layout/footer-navigation.phtml',
-            'partial/layout/footer-newsletter' => __DIR__ . '/../view/partial/layout/footer-newsletter.phtml',
-            'partial/layout/footer-terms' => __DIR__ . '/../view/partial/layout/footer-terms.phtml',
 
-            'partial/page/banners' => __DIR__ . '/../view/partial/page/banners.phtml',
-            'partial/page/gallery' => __DIR__ . '/../view/partial/page/gallery.phtml',
-            'partial/page/offer' => __DIR__ . '/../view/partial/page/offer.phtml',
-            'partial/page/slider' => __DIR__ . '/../view/partial/page/slider.phtml',
-            'partial/page/testimonials' => __DIR__ . '/../view/partial/page/testimonials.phtml',
+            'partial/page/products' => __DIR__ . '/../view/partial/page/products.phtml',
+            'partial/page/single-product' => __DIR__ . '/../view/partial/page/single-product.phtml',
+            'partial/page/about' => __DIR__ . '/../view/partial/page/about.phtml',
+            'partial/page/contact' => __DIR__ . '/../view/partial/page/contact.phtml',
 
-            'partial/newsletter-modal' => __DIR__ . '/../view/partial/newsletter-modal.phtml',
         ),
         'template_path_stack' => array(
             'page_home_site' => __DIR__ . '/../view'

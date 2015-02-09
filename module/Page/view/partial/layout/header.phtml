@@ -1,17 +1,22 @@
-<!-- BEGIN TOP NAVBAR -->
-<div class="top-navbar light-color">
-    <div class="container">
-        <?php echo $this->partial('partial/layout/header-navbar'); ?>
-
-
-        <?php
-            $ulClass = 'menus';
-            $liClass = 'parent';
-            $subUlClass = 'sub-menus';
-            $subLiClass = 'sub-list';
-        ?>
-        <?php echo $this->menuHelper()->renderMenu($menu, $ulClass, $liClass, $subUlClass, $subLiClass); ?>
-
-    </div><!-- /.container -->
-</div><!-- /.top-navbar -->
-<!-- END TOP NAVBAR -->
+    <header class="header">
+        <div class="container">
+            <div class="menu-wrapper">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-menu-2"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">Bloxo</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <?php
+                            $ulClass = 'nav navbar-nav navbar-right';
+                            $liClass = 'dropdown';
+                            $subUlClass = 'dropdown-menu';
+                        ?>
+                        <?php echo $this->menuHelper()->renderMenu($menu, $ulClass, $liClass, $subUlClass, null); ?>
+                    </div>
+                </nav>
+            </div><!-- menu wrapper -->
+        </div><!-- end container -->
+    </header><!-- end header -->

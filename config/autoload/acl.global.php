@@ -18,7 +18,8 @@ return array(
 
                 // CMS
                 'CmsIr\System\Controller\System' => array(
-                    'all'	=> 'superadmin',
+                    'createThumb'	=> 'guest',
+                    'saveEditorImages'	=> 'superadmin',
                 ),
 				'CmsIr\Authentication\Controller\Index' => array(
 					'all'	=> 'guest',

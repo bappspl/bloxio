@@ -14,10 +14,31 @@ return array(
     'viewPage' => array(
         'type' => 'Zend\Mvc\Router\Http\Segment',
         'options' => array(
-            'route'    => '/strona/:slug',
+            'route'    => '/strona/:slug[/:post]',
             'defaults' => array(
                 'controller' => 'Page\Controller\Page',
                 'action'     => 'viewPage',
+            ),
+        ),
+    ),
+    'product-description' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route'    => '/product-description',
+            'defaults' => array(
+                'controller' => 'Page\Controller\Page',
+                'action'     => 'productDescription',
+            ),
+        ),
+    ),
+
+    'contact-form' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route'    => '/contact-form',
+            'defaults' => array(
+                'controller' => 'Page\Controller\Page',
+                'action'     => 'contactForm',
             ),
         ),
     ),

@@ -2,9 +2,18 @@
 
 namespace Page\Controller;
 
+use CmsIr\Product\Model\Client;
+use CmsIr\Product\Model\Product;
+use Zend\Db\Sql\Predicate\In;
+use Zend\Db\Sql\Predicate\Predicate;
+use Zend\Db\Sql\Predicate\PredicateSet;
+use Zend\Json\Json;
+use Zend\Mail\Message;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Zend\Mime\Message as MimeMessage;
+use Zend\Mime\Part as MimePart;
 
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Result;
@@ -16,39 +25,347 @@ class PageController extends AbstractActionController
 {
     public function homeAction()
     {
-//        $menu = $this->getMenuService()->getMenuByMachineName('main-menu');
-//        $this->layout()->menu = $menu;
-
-        $slider = $this->getSliderService()->findOneBySlug('slider-glowny');
-        $items = $slider->getItems();
-
         $this->layout('layout/home');
+        // home page content
+        $page = $this->getPageService()->findOneBySlug('home');
+        if(empty($page)){
+            $this->getResponse()->setStatusCode(404);
+        }
 
+        // clients for footer
+        $clients = $this->getClientTable()->getAll();
+        $this->layout()->clients = $clients;
+
+        $categories = $this->getCategoryTable()->getAll();
+
+        // products
+        $request = $this->getRequest();
+        if ($request->isPost())
+        {
+            $pageNumber = (int) $request->getPost('page');
+
+            $order = 'date DESC';
+            $countProducts = $this->getProductTable()->getByAndCount(array());
+            $products = $this->getProductTable()->getWithPaginationBy(new Product(), array(), $order);
+            $products->setCurrentPageNumber($pageNumber);
+            $products->setItemCountPerPage(6);
+
+            $portfolioTemplate = $this->getPortfolioTemplate($products);
+            $params = array(
+                'nextPage' => $pageNumber += 1,
+                'products' => $portfolioTemplate,
+                'countProducts' => $countProducts
+
+            );
+            $jsonObject = Json::encode($params, true);
+            echo $jsonObject;
+            return $this->response;
+        } else
+        {
+            $pageNumber = 1;
+            $order = 'date DESC';
+            $countProducts = $this->getProductTable()->getByAndCount(array());
+            $products = $this->getProductTable()->getWithPaginationBy(new Product(), array(), $order);
+            $products->setCurrentPageNumber($pageNumber);
+            $products->setItemCountPerPage(6);
+
+            $test = array();
+
+            /* @var $product Product */
+            foreach($products as $product)
+            {
+                $realizationId = $product->getRealizationId();
+                $categoryId = $product->getCategoryId();
+
+                $realization = $this->getRealizationTable()->getOneBy(array('id' => $realizationId));
+                $product->setRealization($realization->getName());
+
+                $category = $this->getCategoryTable()->getOneBy(array('id' => $categoryId));
+                $product->setCategory($category->getName());
+                $test[] = $product;
+            }
+        }
         $viewParams = array();
-        $viewParams['items'] = $items;
+        $viewParams['page'] = $page;
+        $viewParams['products'] = $test;
+        $viewParams['countProducts'] = $countProducts;
+        $viewParams['categories'] = $categories;
+
         $viewModel = new ViewModel();
         $viewModel->setVariables($viewParams);
         return $viewModel;
     }
 
+    public function productDescriptionAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $productId = (int) $request->getPost('productId');
+            /* @var $product Product */
+            $product = $this->getProductTable()->getOneBy(array('id' => $productId));
+
+            $template = "";
+            $template .= "<div class='cbp-l-inline'>";
+            $template .= "<div class='cbp-l-inline-left GrayScale'>";
+            $template .= "<img src='/thumb/product/502x376/".$product->getMainPhoto()."' alt=''>";
+            $template .= "</div>";
+            $template .= "<div class='cbp-l-inline-right'>";
+            $template .= "<div class='cbp-l-inline-title'>".$product->getName()."</div>";
+            $template .= "<div class='cbp-l-inline-desc'>".$product->getDescription()."</div>";
+            $template .= "<a href='/strona/portfolio/".$product->getSlug()."' class='cbp-l-inline-view'>Zobacz projekt</a>";
+            $template .= "</div></div>";
+
+            $params = array('content' => $template);
+
+            $jsonObject = Json::encode($params, true);
+            echo $jsonObject;
+            return $this->response;
+
+        }
+        return false;
+    }
     public function viewPageAction()
     {
         $this->layout('layout/home');
 
         $slug = $this->params('slug');
-
-        $page = $this->getPageService()->findOneBySlug($slug);
+        if($slug == 'klient')
+            $page = $this->getPageService()->findOneBySlug('portfolio');
+        else
+            $page = $this->getPageService()->findOneBySlug($slug);
 
         if(empty($page)){
             $this->getResponse()->setStatusCode(404);
         }
-
         $viewParams = array();
+
+        switch($slug)
+        {
+            case 'portfolio':
+                $post = $this->params('post');
+                if(isset($post))
+                {
+                    /* @var $product Product */
+                    $product = $this->getProductTable()->getOneBy(array('slug' => $post));
+                    $productId = $product->getId();
+                    $productFiles = $this->getProductFileTable()->getBy(array('product_id' => $productId));
+
+                    $realizationId = $product->getRealizationId();
+                    $categoryId = $product->getCategoryId();
+
+                    $realization = $this->getRealizationTable()->getOneBy(array('id' => $realizationId));
+                    $client = $this->getClientTable()->getOneBy(array('id' => $realization->getClientId()));
+                    $realization->setClient($client);
+
+                    $product->setRealization($realization);
+
+                    $category = $this->getCategoryTable()->getOneBy(array('id' => $categoryId));
+                    $product->setCategory($category->getName());
+
+                    $viewParams['post'] = $post;
+                    $viewParams['product'] = $product;
+                    $viewParams['productFiles'] = $productFiles;
+                } else
+                {
+                    $categories = $this->getCategoryTable()->getAll();
+
+                    // products
+                    $request = $this->getRequest();
+                    if ($request->isPost())
+                    {
+                        $pageNumber = (int) $request->getPost('page');
+
+                        $order = 'date DESC';
+                        $countProducts = $this->getProductTable()->getByAndCount(array());
+                        $products = $this->getProductTable()->getWithPaginationBy(new Product(), array(), $order);
+                        $products->setCurrentPageNumber($pageNumber);
+                        $products->setItemCountPerPage(6);
+
+                        $portfolioTemplate = $this->getPortfolioTemplate($products);
+                        $params = array(
+                            'nextPage' => $pageNumber += 1,
+                            'products' => $portfolioTemplate,
+                            'countProducts' => $countProducts
+
+                        );
+                        $jsonObject = Json::encode($params, true);
+                        echo $jsonObject;
+                        return $this->response;
+                    } else
+                    {
+                        $pageNumber = 1;
+                        $order = 'date DESC';
+                        $countProducts = $this->getProductTable()->getByAndCount(array());
+                        $products = $this->getProductTable()->getWithPaginationBy(new Product(), array(), $order);
+                        $products->setCurrentPageNumber($pageNumber);
+                        $products->setItemCountPerPage(6);
+
+                        $test = array();
+
+                        /* @var $product Product */
+                        foreach($products as $product)
+                        {
+                            $realizationId = $product->getRealizationId();
+                            $categoryId = $product->getCategoryId();
+
+                            $realization = $this->getRealizationTable()->getOneBy(array('id' => $realizationId));
+                            $product->setRealization($realization->getName());
+
+                            $category = $this->getCategoryTable()->getOneBy(array('id' => $categoryId));
+                            $product->setCategory($category->getName());
+                            $test[] = $product;
+                        }
+                    }
+
+                    $viewParams['products'] = $test;
+                    $viewParams['countProducts'] = $countProducts;
+                    $viewParams['categories'] = $categories;
+                }
+
+            break;
+            case 'klient':
+                $post = $this->params('post');
+                if(isset($post))
+                {
+                    /* @var $client Client */
+                    $client = $this->getClientTable()->getOneBy(array('slug' => $post));
+                    $clientId = $client->getId();
+
+                    $clientRealizations = $this->getRealizationTable()->getBy(array('client_id' => $clientId));
+                    $realizationIds = array();
+                    foreach($clientRealizations as $realization)
+                    {
+                        $realizationIds[] = $realization->getId();
+                    }
+
+                    // categories
+                    $allProductsIn = $this->getProductTable()->getBy(new In('realization_id', $realizationIds));
+                    $categoryIds = array();
+                    foreach($allProductsIn as $product)
+                    {
+                        $categoryIds[] = $product->getCategoryId();
+                    }
+                    $categories = $this->getCategoryTable()->getBy(new In('id', $categoryIds));
+
+                    // products
+                    $request = $this->getRequest();
+                    if ($request->isPost())
+                    {
+                        $pageNumber = (int) $request->getPost('page');
+
+                        $order = 'date DESC';
+                        $countProducts = $this->getProductTable()->getByAndCount(new In('realization_id', $realizationIds));
+                        $products = $this->getProductTable()->getWithPaginationBy(new Product(), new In('realization_id', $realizationIds), $order);
+                        $products->setCurrentPageNumber($pageNumber);
+                        $products->setItemCountPerPage(6);
+
+                        $portfolioTemplate = $this->getPortfolioTemplate($products);
+                        $params = array(
+                            'nextPage' => $pageNumber += 1,
+                            'products' => $portfolioTemplate,
+                            'countProducts' => $countProducts
+
+                        );
+                        $jsonObject = Json::encode($params, true);
+                        echo $jsonObject;
+                        return $this->response;
+                    } else
+                    {
+
+                        $pageNumber = 1;
+                        $order = 'date DESC';
+                        $countProducts = $this->getProductTable()->getByAndCount(new In('realization_id', $realizationIds));
+                        $products = $this->getProductTable()->getWithPaginationBy(new Product(), new In('realization_id', $realizationIds), $order);
+                        $products->setCurrentPageNumber($pageNumber);
+                        $products->setItemCountPerPage(6);
+
+                        $test = array();
+
+                        /* @var $product Product */
+                        foreach($products as $product)
+                        {
+                            $realizationId = $product->getRealizationId();
+                            $categoryId = $product->getCategoryId();
+
+                            $realization = $this->getRealizationTable()->getOneBy(array('id' => $realizationId));
+                            $product->setRealization($realization->getName());
+
+                            $category = $this->getCategoryTable()->getOneBy(array('id' => $categoryId));
+                            $product->setCategory($category->getName());
+                            $test[] = $product;
+                        }
+                    }
+
+                    $viewParams['client'] = $client;
+                    $viewParams['products'] = $test;
+                    $viewParams['countProducts'] = $countProducts;
+                    $viewParams['categories'] = $categories;
+                }
+            break;
+            case 'o-nas':
+                $users = $this->getUsersTable()->getAll();
+                $viewParams['users'] = $users;
+
+            break;
+            case 'aktualnosci':
+
+            break;
+            case 'kontakt':
+
+            break;
+        }
+
+        $clients = $this->getClientTable()->getAll();
+        $this->layout()->clients = $clients;
+
         $viewParams['page'] = $page;
+        $viewParams['slug'] = $slug;
+
         $viewModel = new ViewModel();
         $viewModel->setVariables($viewParams);
         return $viewModel;
 
+    }
+
+    public function contactFormAction()
+    {
+        $request = $this->getRequest();
+        if ($request->isPost())
+        {
+            $name = $request->getPost('name');
+            $email = $request->getPost('email');
+            $website = $request->getPost('website');
+            $subject = $request->getPost('subject');
+            $comments = $request->getPost('comments');
+
+            $content = "Imię: <b>" . $name . "</b> <br/>" .
+                       "Email: <b>" . $email . "</b> <br/>" .
+                       "Strona www: <b>" . $website . "</b> <br/>" .
+                       "Temat: <b>" . $subject . "</b> <br/>" .
+                       "Treść: <b>" . $comments . "</b> <br/>";
+
+            $html = new MimePart($content);
+            $html->type = "text/html";
+
+            $body = new MimeMessage();
+            $body->setParts(array($html));
+
+            $transport = $this->getServiceLocator()->get('mail.transport');
+            $message = new Message();
+            $this->getRequest()->getServer();
+            $message->addTo('biuro@web-ir.pl')
+                    ->addFrom('mailer@web-ir.pl')
+                    ->setEncoding('UTF-8')
+                    ->setSubject('Wiadomość z formularza kontaktowego')
+                    ->setBody($body);
+            $transport->send($message);
+        }
+
+
+        $params = 'Wiadomość została wysłana poprawnie';
+        $jsonObject = Json::encode($params, true);
+        echo $jsonObject;
+        return $this->response;
     }
 
     public function saveSubscriberAjaxAction ()
@@ -139,6 +456,33 @@ class PageController extends AbstractActionController
         return $viewModel;
     }
 
+    private function getPortfolioTemplate($products)
+    {
+         /* @var $product \CmsIr\Product\Model\Product */
+        $template = '';
+        foreach($products as $product)
+        {
+            $name = $product->getName();
+            $filename = $product->getMainPhoto();
+            $realizationId = $product->getRealizationId();
+            $categoryId = $product->getCategoryId();
+
+            $realization = $this->getRealizationTable()->getOneBy(array('id' => $realizationId));
+            $category = $this->getCategoryTable()->getOneBy(array('id' => $categoryId));
+
+            $template .= "<li class='cbp-item " . $categoryId . "'>";
+            $template .= "<a href='#' class='cbp-caption cbp-singlePageInline' data-title='" .$name."'>";
+            $template .= "<div class='cbp-caption-defaultWrap GrayScale'>";
+            $template .= "<img src='thumb/product/373x273/". $filename ."' alt='". $name . "'>";
+            $template .= "</div>";
+            $template .= "<div class='cbp-caption-activeWrap'><div class='cbp-l-caption-alignLeft'><div class='cbp-l-caption-body'>";
+            $template .= "<div class='cbp-l-caption-title'>" .$name."</div>";
+            $template .= "<div class='cbp-l-caption-desc'>". $realization->getName() . ", " . $category->getName() . "</div>";
+            $template .= "</div></div></div></a></li>";
+        }
+
+        return $template;
+    }
     /**
      * @return \CmsIr\Menu\Service\MenuService
      */
@@ -177,5 +521,53 @@ class PageController extends AbstractActionController
     public function getStatusTable()
     {
         return $this->getServiceLocator()->get('CmsIr\System\Model\StatusTable');
+    }
+
+    /**
+     * @return \CmsIr\Product\Model\ClientTable
+     */
+    public function getClientTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Product\Model\ClientTable');
+    }
+
+    /**
+     * @return \CmsIr\Product\Model\ProductTable
+     */
+    public function getProductTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Product\Model\ProductTable');
+    }
+
+    /**
+     * @return \CmsIr\Product\Model\CategoryTable
+     */
+    public function getCategoryTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Product\Model\CategoryTable');
+    }
+
+    /**
+     * @return \CmsIr\Product\Model\RealizationTable
+     */
+    public function getRealizationTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Product\Model\RealizationTable');
+    }
+
+    /**
+     * @return \CmsIr\Product\Model\ProductFileTable
+     */
+    public function getProductFileTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Product\Model\ProductFileTable');
+    }
+
+    /**
+     * @return \CmsIr\Users\Model\UsersTable
+     */
+    public function getUsersTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Users\Model\UsersTable');
     }
 }

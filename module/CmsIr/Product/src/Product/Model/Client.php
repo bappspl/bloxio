@@ -7,6 +7,7 @@ class Client extends Model
 {
     protected $id;
     protected $name;
+    protected $slug;
     protected $filename;
     protected $size;
     protected $description;
@@ -15,6 +16,7 @@ class Client extends Model
     {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
+        $this->slug = (!empty($data['slug'])) ? $data['slug'] : null;
         $this->filename = (!empty($data['filename'])) ? $data['filename'] : null;
         $this->size = (!empty($data['size'])) ? $data['size'] : null;
         $this->description = (!empty($data['description'])) ? $data['description'] : null;
@@ -50,6 +52,22 @@ class Client extends Model
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
