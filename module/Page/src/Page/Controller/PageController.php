@@ -2,6 +2,7 @@
 
 namespace Page\Controller;
 
+use CmsIr\Post\Model\Post;
 use CmsIr\Product\Model\Client;
 use CmsIr\Product\Model\Product;
 use Zend\Db\Sql\Predicate\In;
@@ -307,9 +308,6 @@ class PageController extends AbstractActionController
                 $viewParams['users'] = $users;
 
             break;
-            case 'aktualnosci':
-
-            break;
             case 'kontakt':
 
             break;
@@ -325,6 +323,71 @@ class PageController extends AbstractActionController
         $viewModel->setVariables($viewParams);
         return $viewModel;
 
+    }
+
+    public function viewNewsAction ()
+    {
+        $this->layout('layout/home');
+
+        $activeStatus = $this->getStatusTable()->getOneBy(array('slug' => 'active'));
+        $activeStatusId = $activeStatus->getId();
+        $allNews = $this->getPostTable()->getWithPaginationBy(new Post(), array('status_id' => $activeStatusId, 'category' => 'news'));
+
+        /* @var $news \CmsIr\Post\Model\Post */
+
+        $pageNumber = $this->params()->fromRoute('number') ? (int) $this->params()->fromRoute('number') : 1;
+        $allNews->setCurrentPageNumber($pageNumber);
+        $allNews->setItemCountPerPage(2);
+
+        $test = array();
+
+        foreach($allNews as $news)
+        {
+            $newsId = $news->getId();
+            $authorId = $news->getAuthorId();
+            $newsFiles = $this->getPostFileTable()->getBy(array('post_id' => $newsId));
+            $author = $this->getUsersTable()->getOneBy(array('id' => $authorId));
+
+            $news->setAuthor($author->getName());
+            $news->setFiles($newsFiles);
+            $test[] = $news;
+
+        }
+
+        $page = $this->getPageService()->findOneBySlug('aktualnosci');
+
+        $viewParams['page'] = $page;
+        $viewParams['news'] = $test;
+        $viewParams['paginator'] = $allNews;
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariables($viewParams);
+        return $viewModel;
+    }
+
+    public function oneNewsAction()
+    {
+        $this->layout('layout/home');
+        $slug = $this->params('slug');
+        /* @var $news \CmsIr\Post\Model\Post */
+
+        $news = $this->getPostTable()->getOneBy(array('url' => $slug));
+        $newsId = $news->getId();
+        $authorId = $news->getAuthorId();
+
+        $author = $this->getUsersTable()->getOneBy(array('id' => $authorId));
+        $newsFiles = $this->getPostFileTable()->getBy(array('post_id' => $newsId));
+
+        $news->setFiles($newsFiles);
+        $news->setAuthor($author->getName());
+
+        $page = $this->getPageService()->findOneBySlug('aktualnosci');
+
+        $viewParams['page'] = $page;
+        $viewParams['post'] = $news;
+        $viewModel = new ViewModel();
+        $viewModel->setVariables($viewParams);
+        return $viewModel;
     }
 
     public function contactFormAction()
@@ -569,5 +632,21 @@ class PageController extends AbstractActionController
     public function getUsersTable()
     {
         return $this->getServiceLocator()->get('CmsIr\Users\Model\UsersTable');
+    }
+
+    /**
+     * @return \CmsIr\Post\Model\PostTable
+     */
+    public function getPostTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Post\Model\PostTable');
+    }
+
+    /**
+     * @return \CmsIr\Post\Model\PostFileTable
+     */
+    public function getPostFileTable()
+    {
+        return $this->getServiceLocator()->get('CmsIr\Post\Model\PostFileTable');
     }
 }

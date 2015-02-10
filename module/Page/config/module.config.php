@@ -20,6 +20,9 @@ return array(
             'partial/page/single-product' => __DIR__ . '/../view/partial/page/single-product.phtml',
             'partial/page/about' => __DIR__ . '/../view/partial/page/about.phtml',
             'partial/page/contact' => __DIR__ . '/../view/partial/page/contact.phtml',
+            'partial/page/single-post' => __DIR__ . '/../view/partial/page/single-post.phtml',
+            'partial/page/posts' => __DIR__ . '/../view/partial/page/posts.phtml',
+            'partial/page/post' => __DIR__ . '/../view/partial/page/post.phtml',
 
         ),
         'template_path_stack' => array(

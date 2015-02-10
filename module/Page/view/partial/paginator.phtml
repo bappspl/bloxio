@@ -1,0 +1,53 @@
+<div class="col-lg-12">
+    <div class="next-prev text-center clearfix">
+    <nav>
+<?php if ($this->pageCount): ?>
+        <ul class="pager">
+            <!-- Previous page link -->
+            <?php if (isset($this->previous)): ?>
+                <li>
+                    <a href="<?php echo $this->url($this->route, array('number' => $this->previous)); ?>">
+                        <i class="icon-left-open-1"></i>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#">
+                        <i class="icon-left-open-1"></i>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                    <li>
+                        <a href="<?php echo $this->url($this->route, array('number' => $page)); ?>">
+                            <?php echo $page; ?>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="active">
+                        <a href="#"><?php echo $page; ?></a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                <li>
+                    <a href="<?php echo $this->url($this->route, array('number' => $this->next)); ?>">
+                        <i class="icon-right-open-1"></i>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a href="#">
+                        <i class="icon-right-open-1"></i>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+<?php endif; ?>
+    </nav>
+    </div><!-- end next prev -->
+</div><!-- end col -->

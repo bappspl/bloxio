@@ -1,0 +1,61 @@
+<div class="page-wrapper clearfix">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <article class="blog-post single-post clearfix">
+                    <?php
+                        /* @var $post \CmsIr\Post\Model\Post */
+                        $postFiles = $post->getFiles();
+                        if(isset($postFiles)):
+
+                        $firstFile = reset($postFiles);
+                        $firstFileName = $firstFile->getFilename();
+                    ?>
+                    <div class="fadeeffect media GrayScale">
+                        <img src="<?php echo $this->url('thumb', array('entity' => 'post', 'size' => '750x499', 'filename' => $firstFileName)); ?>" alt="<?php echo $post->getName(); ?>" class="img-responsive">
+                    </div><!-- end media -->
+
+                    <?php endif; ?>
+                    <div class="post-title">
+                        <h3><a href="#" title="<?php echo $post->getName(); ?>"><?php echo $post->getName(); ?></a></h3>
+                    </div><!-- end title -->
+                    <div class="meta">
+                        <span><a href="#" title=""><?php echo $post->getAuthor(); ?></a></span>
+                        <span><?php echo $post->getDate(); ?></span>
+                    </div>
+                    <div class="details">
+                        <?php echo $post->getText(); ?>
+                    </div><!-- end details -->
+
+                    <div class="post-share text-left clearfix">
+                        <div class="social">
+                            <p>Podziel się:
+                                <a href="http://www.facebook.com/share.php?u=<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url('oneNews', array('slug' => $post->getUrl())); ?>/&title=<?php echo $post->getName(); ?>" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="icon-facebook"></i></a>
+                                <a href="http://twitter.com/home?status=<?php echo $post->getName(); ?>+<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url('oneNews', array('slug' => $post->getUrl())); ?>" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="icon-twitter"></i></a>
+                                <a href="https://plus.google.com/share?url=<?php echo 'http://' .  $_SERVER['HTTP_HOST'] . $this->url('oneNews', array('slug' => $post->getUrl())); ?>" data-toggle="tooltip" data-placement="top" title="Google Plus"><i class="icon-googleplus"></i></a>
+                                <a href="http://www.reddit.com/submit?url=<?php echo 'http://' .  $_SERVER['HTTP_HOST'] . $this->url('oneNews', array('slug' => $post->getUrl())); ?>&title=<?php echo $post->getName(); ?>" data-toggle="tooltip" data-placement="top" title="reddit"><i class="icon-reddit"></i></a>
+<!--                                <a href="#" data-toggle="tooltip" data-placement="top" title="vimeo"><i class="icon-vimeo"></i></a>-->
+<!--                                <a href="#" data-toggle="tooltip" data-placement="top" title="Behance"><i class="icon-behance"></i></a></p>-->
+                        </div><!-- end social -->
+                    </div><!-- end share -->
+
+<!--                    <div class="tags">-->
+<!--                        <a href="#" title="12 post">blog post</a>, <a href="#" title="12 post">web design</a>, <a href="#" title="12 post">freebiews</a>-->
+<!--                    </div>-->
+                </article>
+            </div>
+            <div id="sidebar" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="widget clearfix">
+                    <div class="widget-title">
+                        <h3>Subscribe</h3>
+                    </div><!-- end widget title -->
+                    <form id="subscribe" name="subscribeform" method="post">
+                        <p>If you want to more freebie items please subscribe our newsletter form.</p>
+                        <input type="text" name="comments_form_name" id="name_subscribe" class="form-control" placeholder="Enter your email address">
+                        <input type="submit" value="Subscribe" id="submit_subscribe" class="cbp-l-inline-view">
+                    </form>
+                </div><!-- end widget -->
+            </div><!-- end sidebar -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end portfolio -->

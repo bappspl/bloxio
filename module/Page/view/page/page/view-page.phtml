@@ -34,12 +34,12 @@
         case 'o-nas':
             echo $this->partial('partial/page/about');
         break;
-        case 'aktualnosci':
-            echo $this->partial('partial/page/about');
-        break;
         case 'kontakt':
             echo $this->partial('partial/page/contact');
+            $this->headLink()->appendStylesheet($this->basePath().'/css/jquery.realperson.css');
+
             $this->inlineScript()->appendFile($this->basePath().'/js/jquery.jigowatt.js');
+            $this->inlineScript()->appendFile($this->basePath().'/js/jquery.realperson.min.js');
         break;
     }
 ?>

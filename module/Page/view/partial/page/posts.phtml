@@ -1,0 +1,63 @@
+<div class="page-wrapper clearfix">
+    <div class="container">
+        <div class="row">
+
+            <?php if(isset($news)): ?>
+            <div id="content" class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <?php /* @var $oneNews \CmsIr\Post\Model\Post */?>
+
+                <?php foreach($news as $oneNews): ?>
+                    <?php
+                        $postFiles = $oneNews->getFiles();
+                        $firstFile = reset($postFiles);
+                        $firstFileName = $firstFile->getFilename();
+
+                        $text = $oneNews->getText();
+                        $stripText = strip_tags($text);
+
+                        if(strlen($stripText) > 170) $stripText = mb_substr($stripText, 0, 170, 'utf-8');
+                    ?>
+                <article class="blog-post clearfix">
+                    <div class="col-lg-4 col-md-4 col-xs-12">
+                        <div class="fadeeffect media GrayScale">
+                            <img src="<?php echo $this->url('thumb', array('entity' => 'post', 'size' => '220x146', 'filename' => $firstFileName)); ?>" alt="" class="img-responsive">
+                        </div><!-- end media -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-8 col-md-8 col-xs-12">
+                        <div class="post-title">
+                            <h3><a href="<?php echo $this->url('oneNews', array('slug' => $oneNews->getUrl())); ?>" title=""><?php echo $oneNews->getName(); ?></a></h3>
+                        </div><!-- end title -->
+                        <div class="meta">
+                            <span><a href="<?php echo $this->url('oneNews', array('slug' => $oneNews->getUrl())); ?>" title=""><?php echo $oneNews->getAuthor(); ?></a></span>
+                            <span><?php echo $oneNews->getDate(); ?></span>
+                        </div>
+                        <div class="details">
+                            <p><?php echo $stripText; ?></p>
+                        </div><!-- end details -->
+                        <a class="cbp-l-inline-view" href="<?php echo $this->url('oneNews', array('slug' => $oneNews->getUrl())); ?>">Czytaj całość</a>
+                    </div><!-- end col -->
+                </article>
+                <?php endforeach; ?>
+
+                <?php echo $this->paginationControl($paginator, 'sliding', array('partial/paginator.phtml', 'Post'), array('route' => 'viewNews')) ?>
+
+            </div>
+
+            <?php endif; ?>
+
+            <div id="sidebar" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="widget clearfix">
+                    <div class="widget-title">
+                        <h3>Subscribe</h3>
+                    </div><!-- end widget title -->
+                    <form id="subscribe" name="subscribeform" method="post">
+                        <p>If you want to more freebie items please subscribe our newsletter form.</p>
+                        <input type="text" name="comments_form_name" id="name" class="form-control" placeholder="Enter your email address">
+                        <input type="submit" value="Subscribe" id="submit" class="cbp-l-inline-view">
+                    </form>
+                </div><!-- end widget -->
+            </div><!-- end sidebar -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end portfolio -->

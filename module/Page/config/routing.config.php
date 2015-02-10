@@ -14,10 +14,36 @@ return array(
     'viewPage' => array(
         'type' => 'Zend\Mvc\Router\Http\Segment',
         'options' => array(
-            'route'    => '/strona/:slug[/:post]',
+            'route'    => '/strona/:slug[/:post][/strona/:number]',
             'defaults' => array(
                 'controller' => 'Page\Controller\Page',
                 'action'     => 'viewPage',
+            ),
+        ),
+    ),
+    'viewNews' => array(
+        'type' => 'Zend\Mvc\Router\Http\Segment',
+        'options' => array(
+            'route'    => '/strona/aktualnosci[/strona/:number]',
+            'defaults' => array(
+                'controller' => 'Page\Controller\Page',
+                'action'     => 'viewNews',
+            ),
+            'constraints' => array(
+                'number' => '[0-9_-]+'
+            ),
+        ),
+    ),
+    'oneNews' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route'    => '/strona/aktualnosci/:slug',
+            'defaults' => array(
+                'controller' => 'Page\Controller\Page',
+                'action'     => 'oneNews',
+            ),
+            'constraints' => array(
+                'slug' => '[a-zA-Z0-9_-]+'
             ),
         ),
     ),
