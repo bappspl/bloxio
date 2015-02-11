@@ -20,7 +20,7 @@ return array(
              ),
              array(
                  'label' => 'Menu',
-                 'route' => 'fake',
+                 'route' => 'fake-menu',
                  'class' => 'fa fa-bars',
                  'id'    => 4,
                  'pages' => array(
@@ -332,7 +332,7 @@ return array(
              ),
              array(
                  'label' => 'Użytkownicy',
-                 'route' => 'fake',
+                 'route' => 'fake-users',
                  'class' => 'fa fa-users',
                  'id'    => 4,
                  'pages' => array(
