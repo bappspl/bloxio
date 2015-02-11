@@ -32,6 +32,7 @@ return array(
                 ),
                 'CmsIr\Users\Controller\Users' => array(
                     'all'	=> 'superadmin',
+                    'changePassword' => 'user'
                 ),
                 'CmsIr\Slider\Controller\Slider' => array(
                     'all'	=> 'superadmin',

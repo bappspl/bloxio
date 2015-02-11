@@ -363,6 +363,12 @@ return array(
                          'route' => 'user-delete',
                          'params' => array(),
                          'visibleInPrimary' => false
+                     )  ,
+                     array(
+                         'label' => 'Zmiana hasła',
+                         'route' => 'user-change-password',
+                         'params' => array(),
+                         'visibleInPrimary' => false
                      )
                  ),
              ),
