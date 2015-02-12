@@ -25,50 +25,26 @@ class CmsCreateUsers extends AbstractMigration
              ->addColumn('google', 'string', array('null' => true))
              ->save();
 
-        $this->insertValues('cms_users', array(
-                'name' => 'string',
-                'surname' => 'string',
-                'password' => 'string',
-                'password_salt' => 'string',
-                'email' => 'string',
-                'email_confirmed' => 'integer',
-                'role' => 'integer',
-                'active' => 'integer',
-                'filename' => 'string',
-                'registration_date' => 'string',
-                'registration_token' => 'string',
-                'position' => 'string',
-                'facebook' => 'string',
-                'twitter' => 'string',
-                'google' => 'string',
-            )
-        );
+        $this->insertYamlValues('cms_users');
     }
 
-    public function insertValues($tableName, $tableColumns)
+    public function insertYamlValues($tableName)
     {
-        $path = fopen ('./data/fixtures/'.$tableName.'.csv',"r");
-        while (($data = fgetcsv($path, 1000, ",")) !== FALSE)  {
+        $filename = './data/fixtures/'.$tableName.'.yml';
+        $array = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($filename));
+
+        foreach ($array as $sArray){
             $value = '';
-            $i = 0;
-            foreach ($tableColumns as $kCol => $vCol) {
-                switch ($vCol) {
-                    case 'text':
-                        $value = $value . $kCol.' = "'.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]). '", ';
-                        break;
-                    case 'string':
-                        $value = $value . $kCol.' = "'.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]). '", ';
-                        break;
-                    case 'integer':
-                        $value = $value . $kCol.' = '.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]) . ', ';
-                        break;
-                }
-                $i++;
+
+            foreach ($sArray as $kCol => $vCol) {
+                $vCol === null ? $value = $value . $kCol .' = NULL , ' : $value = $value . $kCol .' = "' . $vCol . '", ';
             }
+
             $realValue = substr($value, 0, -2);
+
+            $this->execute("SET NAMES UTF8");
             $this->adapter->execute('insert into '.$tableName.' set '.$realValue);
         }
-        fclose ($path);
     }
 
     public function down()

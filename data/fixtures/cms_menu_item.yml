@@ -1,0 +1,25 @@
+first:
+  node_id: 1
+  label: Strona glowna
+  url: /
+  position: 0
+second:
+  node_id: 2
+  label: O nas
+  url: /strona/o-nas
+  position: 0
+third:
+  node_id: 3
+  label: Portfolio
+  url: /strona/portfolio
+  position: 0
+fourth:
+  node_id: 4
+  label: Aktualnosci
+  url: /strona/aktualnosci
+  position: 0
+fifth:
+  node_id: 5
+  label: Kontakt
+  url: /strona/kontakt
+  position: 0

@@ -13,12 +13,7 @@ class CmsCreateMenu extends AbstractMigration
             ->addColumn('position', 'integer')
             ->save();
 
-        $this->insertValues('cms_menu_tree', array(
-                'name' => 'string',
-                'machine_name' => 'string',
-                'position' => 'integer',
-            )
-        );
+        $this->insertYamlValues('cms_menu_tree');
 
         $this->table('cms_menu_node', array())
             ->addColumn('tree_id', 'integer')
@@ -32,16 +27,8 @@ class CmsCreateMenu extends AbstractMigration
             ->addForeignKey('parent_id', 'cms_menu_node', 'id', array('delete' => 'CASCADE', 'update' => 'NO_ACTION'))
             ->save();
 
-        $this->insertValues('cms_menu_node', array(
-                'tree_id' => 'integer',
-                'parent_id' => 'integer',
-                'depth' => 'integer',
-                'is_visible' => 'integer',
-                'provider_type' => 'string',
-                'settings' => 'text',
-                'position' => 'integer',
-            )
-        );
+        $this->insertYamlValues('cms_menu_node');
+
 
         $this->table('cms_menu_item', array())
             ->addColumn('node_id', 'integer')
@@ -51,43 +38,25 @@ class CmsCreateMenu extends AbstractMigration
             ->addForeignKey('node_id', 'cms_menu_node', 'id', array('delete' => 'NO_ACTION', 'update' => 'NO_ACTION'))
             ->save();
 
-        $this->insertValues('cms_menu_item', array(
-                'node_id' => 'integer',
-                'label' => 'string',
-                'url' => 'string',
-                'position' => 'integer',
-            )
-        );
-
-
+        $this->insertYamlValues('cms_menu_item');
     }
 
-    public function insertValues($tableName, $tableColumns)
+    public function insertYamlValues($tableName)
     {
-        setlocale(LC_CTYPE, 'pl_PL');
-        $path = fopen ('./data/fixtures/'.$tableName.'.csv',"r");
-        while (($data = fgetcsv($path, 1000, ",")) !== FALSE)  {
+        $filename = './data/fixtures/'.$tableName.'.yml';
+        $array = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($filename));
+
+        foreach ($array as $sArray){
             $value = '';
-            $i = 0;
-           // iconv("UTF-8", "ISO-8859-1//TRANSLIT", $text)
-            foreach ($tableColumns as $kCol => $vCol) {
-                switch ($vCol) {
-                    case 'text':
-                        $value = $value . $kCol.' = "'.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]). '", ';
-                        break;
-                    case 'string':
-                        $value = $value . $kCol.' = "'. iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]). '", ';
-                        break;
-                    case 'integer':
-                        $value = $value . $kCol.' = '.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]) . ', ';
-                        break;
-                }
-                $i++;
+
+            foreach ($sArray as $kCol => $vCol) {
+                $vCol === null ? $value = $value . $kCol .' = NULL , ' : $value = $value . $kCol .' = "' . $vCol . '", ';
             }
+
             $realValue = substr($value, 0, -2);
+            $this->execute("SET NAMES UTF8");
             $this->adapter->execute('insert into '.$tableName.' set '.$realValue);
         }
-        fclose ($path);
     }
 
     public function down()

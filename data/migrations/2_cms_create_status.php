@@ -12,38 +12,28 @@ class CmsCreateStatus extends AbstractMigration
              ->addColumn('slug', 'string')
              ->save();
 
-        $this->insertValues('cms_status', array(
-                'name' => 'string',
-                'slug' => 'string',
-            )
-        );
+        $this->insertYamlValues('cms_status');
     }
 
-    public function insertValues($tableName, $tableColumns)
+    public function insertYamlValues($tableName)
     {
-        $path = fopen ('./data/fixtures/'.$tableName.'.csv',"r");
-        while (($data = fgetcsv($path, 1000, ",")) !== FALSE)  {
+        $filename = './data/fixtures/'.$tableName.'.yml';
+        $array = \Symfony\Component\Yaml\Yaml::parse(file_get_contents($filename));
+
+        foreach ($array as $sArray){
             $value = '';
-            $i = 0;
-            foreach ($tableColumns as $kCol => $vCol) {
-                switch ($vCol) {
-                    case 'text':
-                        $value = $value . $kCol.' = "'.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]). '", ';
-                    break;
-                    case 'string':
-                        $value = $value . $kCol.' = "'.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]). '", ';
-                    break;
-                    case 'integer':
-                        $value = $value . $kCol.' = '.iconv("UTF-8", "ISO-8859-1//TRANSLIT", $data[$i]) . ', ';
-                    break;
-                }
-                $i++;
+
+            foreach ($sArray as $kCol => $vCol) {
+                $vCol === null ? $value = $value . $kCol .' = NULL , ' : $value = $value . $kCol .' = "' . $vCol . '", ';
             }
+
             $realValue = substr($value, 0, -2);
+
+            $this->execute("SET NAMES UTF8");
             $this->adapter->execute('insert into '.$tableName.' set '.$realValue);
         }
-        fclose ($path);
     }
+
     public function down()
     {
         $this->dropTable('cms_status');
