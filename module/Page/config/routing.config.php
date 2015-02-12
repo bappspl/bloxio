@@ -68,6 +68,16 @@ return array(
             ),
         ),
     ),
+    'captcha' => array(
+        'type' => 'Segment',
+        'options' => array(
+            'route'    => '/captcha',
+            'defaults' => array(
+                'controller' => 'Page\Controller\Page',
+                'action'     => 'captcha',
+            ),
+        ),
+    ),
     'save-subscriber' => array(
         'type' => 'Zend\Mvc\Router\Http\Literal',
         'options' => array(
@@ -81,7 +91,7 @@ return array(
     'newsletter-confirmation' => array(
         'type' => 'Segment',
         'options' => array(
-            'route'    => '/newsletter-confirmation/:code',
+            'route'    => '/newsletter-potwierdzenie/:code',
             'defaults' => array(
                 'controller' => 'Page\Controller\Page',
                 'action'     => 'confirmationNewsletter',
