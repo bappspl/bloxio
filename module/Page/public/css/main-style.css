@@ -83,6 +83,17 @@ transition: all 0.3s ease-in-out;
     max-width: 100% !important;
     height: auto !important;
 }
+.red.name {
+    color:red;
+    font-size: 12px;
+    display: block;
+}
+.loader1 {
+    margin-left: 20px;
+}
+.logo {
+    width: 120px;
+}
 h1,h2,h3,h4,h5,h5,h6 {
 font-family:"Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 color:#343434;

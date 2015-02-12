@@ -2,7 +2,7 @@
 return array(
     'db' => array(
         'driver'         => 'Pdo',
-        'dsn'            => 'mysql:dbname=bloxio;host=localhost',
+        'dsn'            => 'mysql:dbname=vmadmin_dna;host=sql.s12.vdl.pl',
         'driver_options' => array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),

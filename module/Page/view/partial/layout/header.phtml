@@ -6,7 +6,9 @@
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="icon-menu-2"></span>
                         </button>
-                        <a class="navbar-brand" href="index.html">Bloxo</a>
+                        <a class="navbar-brand" href="<?php echo $this->url('home'); ?>">
+                            <img src="<?php echo $this->basePath() ?>/img/logo_dna_front.svg" class="logo" alt="Logo">
+                        </a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <?php

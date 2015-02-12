@@ -36,3 +36,7 @@
 	display: inline-block;
 	float: right;
 }
+.red {
+    color:red;
+    font-size: 12px;
+}
