@@ -77,7 +77,7 @@ class RealizationController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Realizacja została dodana poprawnie.');
 
-                return $this->redirect()->toRoute('realization-list');
+                return $this->redirect()->toRoute('realization');
             }
         }
 
@@ -97,7 +97,7 @@ class RealizationController extends AbstractActionController
         $realization = $this->getRealizationTable()->getOneBy(array('id' => $id));
 
         if(!$realization) {
-            return $this->redirect()->toRoute('realization-list');
+            return $this->redirect()->toRoute('realization');
         }
 
         $clients = $this->getClientTable()->getAll();
@@ -144,7 +144,7 @@ class RealizationController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Realizacja została zedytowana poprawnie.');
 
-                return $this->redirect()->toRoute('realization-list');
+                return $this->redirect()->toRoute('realization');
             }
         }
 
@@ -160,7 +160,7 @@ class RealizationController extends AbstractActionController
         $request = $this->getRequest();
         $id = (int) $this->params()->fromRoute('realization_id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('realization-list');
+            return $this->redirect()->toRoute('realization');
         }
 
         if ($request->isPost()) {
@@ -214,7 +214,7 @@ class RealizationController extends AbstractActionController
                 }
             }
 
-            return $this->redirect()->toRoute('realization-list');
+            return $this->redirect()->toRoute('realization');
         }
 
         return array(

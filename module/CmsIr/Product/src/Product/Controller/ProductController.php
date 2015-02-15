@@ -104,7 +104,7 @@ class ProductController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Produkt został dodany poprawnie.');
 
-                return $this->redirect()->toRoute('realization-list/product-list', array('realization_id' => $realizationId));
+                return $this->redirect()->toRoute('realization/product', array('realization_id' => $realizationId));
             }
         }
 
@@ -191,7 +191,7 @@ class ProductController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Produkt został zedytowany poprawnie.');
 
-                return $this->redirect()->toRoute('realization-list/product-list', array('realization_id' => $realizationId));
+                return $this->redirect()->toRoute('realization/product', array('realization_id' => $realizationId));
             }
         }
 
@@ -211,7 +211,7 @@ class ProductController extends AbstractActionController
         $realizationId = $this->params()->fromRoute('realization_id');
         $id = (int) $this->params()->fromRoute('product_id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('realization-list/product-list', array('realization_id' => $realizationId));
+            return $this->redirect()->toRoute('realization/product', array('realization_id' => $realizationId));
         }
 
         if ($request->isPost()) {
@@ -245,7 +245,7 @@ class ProductController extends AbstractActionController
                 }
             }
 
-            return $this->redirect()->toRoute('realization-list/product-list', array('realization_id' => $realizationId));
+            return $this->redirect()->toRoute('realization/product', array('realization_id' => $realizationId));
         }
 
         return array(

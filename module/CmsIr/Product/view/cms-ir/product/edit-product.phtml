@@ -66,7 +66,7 @@ echo $this->form()->openTag($form);
         <div class="col-sm-12">
             <div class="the-box">
                 <div class="input-group col-sm-12 text-right">
-                    <a class="btn btn-default" href="<?php echo $this->url('realization-list/product-list', array('realization_id' => $realizationId)); ?>">Anuluj</a> &nbsp
+                    <a class="btn btn-default" href="<?php echo $this->url('realization/product', array('realization_id' => $realizationId)); ?>">Anuluj</a> &nbsp
                     <?php echo $this->formInput($form->get('submit')); ?>
                 </div>
             </div>

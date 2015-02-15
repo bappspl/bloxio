@@ -20,18 +20,18 @@ return array(
              ),
              array(
                  'label' => 'Menu',
-                 'route' => 'fake-menu',
+                 'route' => 'menu-main',
                  'class' => 'fa fa-bars',
                  'id'    => 4,
                  'pages' => array(
                      array(
                          'label' => 'Lista menu',
-                         'route' => 'menu-list',
+                         'route' => 'menu',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Edycja menu',
-                         'route' => 'menu-edit',
+                         'route' => 'menu/edit',
                          'visibleInPrimary' => false
                      ),
                  ),
@@ -68,31 +68,31 @@ return array(
              ),
              array(
                  'label' => 'Wpisy',
-                 'route' => 'fake-post',
+                 'route' => 'post-main',
                  'class' => 'fa fa-quote-right',
                  'id'    => 2,
                  'pages' => array(
                      array(
                          'label' => 'Lista newsów',
-                         'route' => 'post-list',
+                         'route' => 'post',
                          'params' => array('category' => 'news'),
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Tworzenie newsa',
-                         'route' => 'post-list/post-create',
+                         'route' => 'post/create',
                          'params' => array('category' => 'news'),
                          'visibleInPrimary' => false
                      ),
                      array(
                          'label' => 'Edycja newsa',
-                         'route' => 'post-list/post-edit',
+                         'route' => 'post/edit',
                          'params' => array('category' => 'news'),
                          'visibleInPrimary' => false
                      ),
                      array(
                          'label' => 'Podgląd newsa',
-                         'route' => 'post-list/post-preview',
+                         'route' => 'post/preview',
                          'params' => array('category' => 'news'),
                          'visibleInPrimary' => false
                      ),
@@ -124,7 +124,7 @@ return array(
              ),
              array(
                  'label' => 'Newsletter',
-                 'route' => 'fake-newsletter',
+                 'route' => 'newsletter-main',
                  'class' => 'fa fa-envelope-o',
                  'id'    => 4,
                  'pages' => array(
@@ -150,22 +150,22 @@ return array(
 //                     ),
                      array(
                          'label' => 'Subskrybenci',
-                         'route' => 'subscriber-list',
+                         'route' => 'newsletter/subscriber-list',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Tworzenie subskrybenta',
-                         'route' => 'subscriber-list/create-subscriber',
+                         'route' => 'newsletter/subscriber-list/create',
                          'visibleInPrimary' => false
                      ),
                      array(
                          'label' => 'Edycja subskrybenta',
-                         'route' => 'subscriber-list/edit-subscriber',
+                         'route' => 'newsletter/subscriber-list/edit',
                          'visibleInPrimary' => false
                      ),
                      array(
                          'label' => 'Podgląd subskrybenta',
-                         'route' => 'subscriber-list/preview-subscriber',
+                         'route' => 'newsletter/subscriber-list/preview',
                          'visibleInPrimary' => false
                      ),
 //                     array(
@@ -245,85 +245,85 @@ return array(
 //             ),
              array(
                  'label' => 'Klienci',
-                 'route' => 'fake-client',
+                 'route' => 'client-main',
                  'class' => 'fa fa-child',
                  'id'    => 4,
                  'pages' => array(
                      array(
                          'label' => 'Tworzenie klienta',
-                         'route' => 'client-list/create-client',
+                         'route' => 'client/create',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Lista klientów',
-                         'route' => 'client-list',
+                         'route' => 'client',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Edycja klienta',
-                         'route' => 'client-list/edit-client',
+                         'route' => 'client/edit',
                          'visibleInPrimary' => false
                      ),
                  ),
              ),
              array(
                  'label' => 'Kategorie',
-                 'route' => 'fake-category',
+                 'route' => 'category-main',
                  'class' => 'fa fa-cubes',
                  'id'    => 4,
                  'pages' => array(
                      array(
                          'label' => 'Tworzenie kategorii',
-                         'route' => 'category-list/create-category',
+                         'route' => 'category/create',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Lista kategorii',
-                         'route' => 'category-list',
+                         'route' => 'category',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Edycja kategorii',
-                         'route' => 'category-list/edit-category',
+                         'route' => 'category/category',
                          'visibleInPrimary' => false
                      ),
                  ),
              ),
              array(
                  'label' => 'Realizacje',
-                 'route' => 'fake-realization',
+                 'route' => 'realization-main',
                  'class' => 'fa fa-folder-open',
                  'id'    => 4,
                  'pages' => array(
                      array(
                          'label' => 'Tworzenie realizacji',
-                         'route' => 'realization-list/create-realization',
+                         'route' => 'realization/create',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Lista realizacji',
-                         'route' => 'realization-list',
+                         'route' => 'realization',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Edycja realizacji',
-                         'route' => 'realization-list/edit-realization',
+                         'route' => 'realization/edit',
                          'visibleInPrimary' => false
                      ),
                      array(
                          'label' => 'Lista produktów realizacji',
-                         'route' => 'realization-list/product-list',
+                         'route' => 'realization/product',
                          'visibleInPrimary' => false,
                          'params' => array('realization_id' => $realizationId),
                          'pages' => array(
                              array(
                                  'label' => 'Tworzenie produktu',
-                                 'route' => 'realization-list/product-list/create-product',
+                                 'route' => 'realization/product/create',
                                  'visibleInPrimary' => false,
                              ),
                              array(
                                  'label' => 'Edycja produktu',
-                                 'route' => 'realization-list/product-list/edit-product',
+                                 'route' => 'realization/product/edit',
                                  'visibleInPrimary' => false,
                              ),
                          )
@@ -332,41 +332,41 @@ return array(
              ),
              array(
                  'label' => 'Użytkownicy',
-                 'route' => 'fake-users',
+                 'route' => 'users-main',
                  'class' => 'fa fa-users',
                  'id'    => 4,
                  'pages' => array(
                      array(
                          'label' => 'Dodaj nowy',
-                         'route' => 'user-create',
+                         'route' => 'users/create',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Lista użytkowników',
-                         'route' => 'users-list',
+                         'route' => 'users',
                          'visibleInPrimary' => true
                      ),
                      array(
                          'label' => 'Edycja użytkownika',
-                         'route' => 'user-edit',
+                         'route' => 'users/edit',
                          'params' => array(),
                          'visibleInPrimary' => false
                      ),
                      array(
                          'label' => 'Podgląd użytkownika',
-                         'route' => 'user-preview',
+                         'route' => 'users/preview',
                          'params' => array(),
                          'visibleInPrimary' => false
                      ),
                      array(
                          'label' => 'Usuwanie użytkownika',
-                         'route' => 'user-delete',
+                         'route' => 'users/delete',
                          'params' => array(),
                          'visibleInPrimary' => false
                      )  ,
                      array(
                          'label' => 'Zmiana hasła',
-                         'route' => 'user-change-password',
+                         'route' => 'users/change-password',
                          'params' => array(),
                          'visibleInPrimary' => false
                      )

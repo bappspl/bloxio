@@ -1,6 +1,6 @@
 <?php
 return array(
-    'fake' => array(
+    'product-main' => array(
         'type'    => 'Segment',
         'options' => array(
             'route'    => '/cms-ir/product',
@@ -8,7 +8,7 @@ return array(
             ),
         ),
     ),
-    'fake-category' => array(
+    'category-main' => array(
         'type'    => 'Segment',
         'options' => array(
             'route'    => '/cms-ir/category',
@@ -16,7 +16,7 @@ return array(
             ),
         ),
     ),
-    'fake-client' => array(
+    'client-main' => array(
         'type'    => 'Segment',
         'options' => array(
             'route'    => '/cms-ir/client',
@@ -24,7 +24,7 @@ return array(
             ),
         ),
     ),
-    'fake-realization' => array(
+    'realization-main' => array(
         'type'    => 'Segment',
         'options' => array(
             'route'    => '/cms-ir/realization',
@@ -32,20 +32,7 @@ return array(
             ),
         ),
     ),
-
-    'product-list' => array(
-        'type'    => 'Segment',
-        'options' => array(
-            'route'    => '/cms-ir/product',
-            'defaults' => array(
-                'module' => 'CmsIr\Product',
-                'controller' => 'CmsIr\Product\Controller\Product',
-                'action'     => 'productList',
-            ),
-        ),
-    ),
-
-    'realization-list' => array(
+    'realization' => array(
         'type'    => 'Segment',
         'may_terminate' => true,
         'options' => array(
@@ -57,7 +44,7 @@ return array(
             ),
         ),
         'child_routes' => array(
-            'create-realization' => array(
+            'create' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -69,7 +56,7 @@ return array(
                     ),
                 ),
             ),
-            'edit-realization' => array(
+            'edit' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -84,7 +71,7 @@ return array(
                     ),
                 ),
             ),
-            'delete-realization' => array(
+            'delete' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -99,7 +86,7 @@ return array(
                     ),
                 ),
             ),
-            'product-list' => array(
+            'product' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -114,7 +101,7 @@ return array(
                     ),
                 ),
                 'child_routes' => array(
-                    'create-product' => array(
+                    'create' => array(
                         'may_terminate' => true,
                         'type' => 'Segment',
                         'options' => array(
@@ -126,7 +113,7 @@ return array(
                             ),
                         ),
                     ),
-                    'edit-product' => array(
+                    'edit' => array(
                         'may_terminate' => true,
                         'type' => 'Segment',
                         'options' => array(
@@ -141,7 +128,7 @@ return array(
                             ),
                         ),
                     ),
-                    'delete-product' => array(
+                    'delete' => array(
                         'may_terminate' => true,
                         'type' => 'Segment',
                         'options' => array(
@@ -160,8 +147,7 @@ return array(
             ),
         ),
     ),
-
-    'category-list' => array(
+    'category' => array(
         'may_terminate' => true,
         'type'    => 'Segment',
         'options' => array(
@@ -173,7 +159,7 @@ return array(
             ),
         ),
         'child_routes' => array(
-            'create-category' => array(
+            'create' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -185,7 +171,7 @@ return array(
                     ),
                 ),
             ),
-            'edit-category' => array(
+            'edit' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -200,7 +186,7 @@ return array(
                     ),
                 ),
             ),
-            'delete-category' => array(
+            'delete' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -217,8 +203,7 @@ return array(
             ),
         ),
     ),
-
-    'client-list' => array(
+    'client' => array(
         'may_terminate' => true,
         'type'    => 'Segment',
         'options' => array(
@@ -230,7 +215,7 @@ return array(
             ),
         ),
         'child_routes' => array(
-            'create-client' => array(
+            'create' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -242,7 +227,7 @@ return array(
                     ),
                 ),
             ),
-            'edit-client' => array(
+            'edit' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -257,7 +242,7 @@ return array(
                     ),
                 ),
             ),
-            'delete-client' => array(
+            'delete' => array(
                 'may_terminate' => true,
                 'type' => 'Segment',
                 'options' => array(
@@ -274,7 +259,6 @@ return array(
             ),
         ),
     ),
-
     'upload-client' => array(
         'type'    => 'Segment',
         'options' => array(
@@ -288,7 +272,6 @@ return array(
             ),
         ),
     ),
-
     'upload-product-main' => array(
         'type'    => 'Segment',
         'options' => array(
@@ -302,7 +285,6 @@ return array(
             ),
         ),
     ),
-
     'upload-product-gallery' => array(
         'type'    => 'Segment',
         'options' => array(
@@ -316,7 +298,6 @@ return array(
             ),
         ),
     ),
-
     'delete-photo' => array(
         'type'    => 'Segment',
         'options' => array(

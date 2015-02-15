@@ -55,7 +55,7 @@ class CategoryController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Kategoria została dodana poprawnie.');
 
-                return $this->redirect()->toRoute('category-list');
+                return $this->redirect()->toRoute('category');
             }
         }
 
@@ -73,7 +73,7 @@ class CategoryController extends AbstractActionController
         $category = $this->getCategoryTable()->getOneBy(array('id' => $id));
 
         if(!$category) {
-            return $this->redirect()->toRoute('category-list');
+            return $this->redirect()->toRoute('category');
         }
 
         $form = new CategoryForm();
@@ -91,7 +91,7 @@ class CategoryController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Kategoria została edytowana poprawnie.');
 
-                return $this->redirect()->toRoute('category-list');
+                return $this->redirect()->toRoute('category');
             }
         }
 
@@ -107,7 +107,7 @@ class CategoryController extends AbstractActionController
         $request = $this->getRequest();
         $id = (int) $this->params()->fromRoute('category_id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('category-list');
+            return $this->redirect()->toRoute('category');
         }
 
         if ($request->isPost()) {
@@ -140,7 +140,7 @@ class CategoryController extends AbstractActionController
                 }
             }
 
-            return $this->redirect()->toRoute('category-list');
+            return $this->redirect()->toRoute('category');
         }
 
         return array(

@@ -61,7 +61,7 @@ class ClientController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Klient został dodany poprawnie.');
 
-                return $this->redirect()->toRoute('client-list');
+                return $this->redirect()->toRoute('client');
             }
         }
 
@@ -81,7 +81,7 @@ class ClientController extends AbstractActionController
         $client = $this->getClientTable()->getOneBy(array('id' => $id));
 
         if(!$client) {
-            return $this->redirect()->toRoute('client-list');
+            return $this->redirect()->toRoute('client');
         }
 
         $form = new ClientForm();
@@ -104,7 +104,7 @@ class ClientController extends AbstractActionController
 
                 $this->flashMessenger()->addMessage('Klient został zedytowany poprawnie.');
 
-                return $this->redirect()->toRoute('client-list');
+                return $this->redirect()->toRoute('client');
             }
         }
 
@@ -120,7 +120,7 @@ class ClientController extends AbstractActionController
         $request = $this->getRequest();
         $id = (int) $this->params()->fromRoute('client_id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('client-list');
+            return $this->redirect()->toRoute('client');
         }
 
         if ($request->isPost()) {
@@ -162,7 +162,7 @@ class ClientController extends AbstractActionController
                 }
             }
 
-            return $this->redirect()->toRoute('client-list');
+            return $this->redirect()->toRoute('client');
         }
 
         return array(
