@@ -1,6 +1,6 @@
 first:
   node_id: 1
-  label: Strona glowna
+  label: Strona główna
   url: /
   position: 0
 second:
@@ -15,7 +15,7 @@ third:
   position: 0
 fourth:
   node_id: 4
-  label: Aktualnosci
+  label: Aktualności
   url: /strona/aktualnosci
   position: 0
 fifth:

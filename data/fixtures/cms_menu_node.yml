@@ -11,7 +11,7 @@ second:
   parent_id: null
   depth: 0
   is_visible: 1
-  provider_type: page_provider
+  provider_type: page
   settings: null
   position: 1
 third:
@@ -19,7 +19,7 @@ third:
   parent_id: null
   depth: 0
   is_visible: 1
-  provider_type: page_provider
+  provider_type: page
   settings: null
   position: 2
 fourth:
@@ -27,7 +27,7 @@ fourth:
   parent_id: null
   depth: 0
   is_visible: 1
-  provider_type: page_provider
+  provider_type: page
   settings: null
   position: 3
 fifth:
@@ -35,6 +35,6 @@ fifth:
   parent_id: null
   depth: 0
   is_visible: 1
-  provider_type: page_provider
+  provider_type: page
   settings: null
   position: 4
