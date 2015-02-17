@@ -569,7 +569,7 @@ background:#282828;
     z-index:999999; /* makes sure it stays on top */
 }
 .loader {
-    width:200px;
+    width:250px;
     text-indent:-99999;
     height:200px;
     font-size:0;
@@ -579,7 +579,7 @@ background:#282828;
     background-image:url(/img/loading.gif); /* path to your loading animation */
     background-repeat:no-repeat;
     background-position:center;
-    margin:-100px 0 0 -100px; /* is width and height divided by two */
+    margin:-125px 0 0 -125px; /* is width and height divided by two */
 }
 
 .cbp-item img,

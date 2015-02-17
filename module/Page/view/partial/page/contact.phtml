@@ -1,10 +1,20 @@
+<style>
+    #map-canvas {
+        width: 100%;
+        height: 400px;
+    }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+
 <div class="page-wrapper clearfix">
     <div class="container">
 
         <div class="row">
             <div class="col-lg-6 col-md-6 col-xs-12">
                 <div class="media single-work GrayScale">
-                    <img src="/img/map.png" alt="" class="img-responsive">
+<!--                    <img src="/img/map.png" alt="" class="img-responsive">-->
+                    <div id="map-canvas"></div>
                 </div><!-- end media -->
             </div><!-- end col -->
 
@@ -47,3 +57,30 @@
         </div><!-- end row -->
     </div><!-- end container -->
 </div><!-- end portfolio -->
+
+
+
+<?php $this->inlineScript()->captureStart() ?>
+
+    function initialize() {
+        var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+            center: new google.maps.LatLng(52.085815, 16.645184),
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+var marker = new google.maps.Marker({
+position: new google.maps.LatLng(52.085815, 16.645184),
+map: map,
+});
+
+marker.setMap(map);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+<?php $this->inlineScript()->captureEnd() ?>

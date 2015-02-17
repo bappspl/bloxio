@@ -417,8 +417,8 @@ class PageController extends AbstractActionController
             $transport = $this->getServiceLocator()->get('mail.transport');
             $message = new Message();
             $this->getRequest()->getServer();
-            $message->addTo('biuro@web-ir.pl')
-                    ->addFrom('mailer@web-ir.pl')
+            $message->addTo('website@dnastudio.pl')
+                    ->addFrom('website@dnastudio.pl')
                     ->setEncoding('UTF-8')
                     ->setSubject('Wiadomość z formularza kontaktowego')
                     ->setBody($body);
@@ -490,7 +490,7 @@ class PageController extends AbstractActionController
         $message = new Message();
         $this->getRequest()->getServer();
         $message->addTo($email)
-            ->addFrom('mailer@web-ir.pl')
+            ->addFrom('website@dnastudio.pl')
             ->setSubject('Prosimy o potwierdzenie subskrypcji!')
             ->setBody("W celu potwierdzenia subskrypcji kliknij w link => " .
                 $this->getRequest()->getServer('HTTP_ORIGIN') .
