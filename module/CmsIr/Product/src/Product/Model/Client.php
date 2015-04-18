@@ -2,6 +2,7 @@
 namespace CmsIr\Product\Model;
 
 use CmsIr\System\Model\Model;
+use CmsIr\System\Util\Inflector;
 
 class Client extends Model
 {
@@ -16,7 +17,7 @@ class Client extends Model
     {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
-        $this->slug = (!empty($data['slug'])) ? $data['slug'] : null;
+        $this->slug = Inflector::slugify($this->name);
         $this->filename = (!empty($data['filename'])) ? $data['filename'] : null;
         $this->size = (!empty($data['size'])) ? $data['size'] : null;
         $this->description = (!empty($data['description'])) ? $data['description'] : null;

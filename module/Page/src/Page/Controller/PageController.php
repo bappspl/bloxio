@@ -6,6 +6,7 @@ use CmsIr\Newsletter\Model\Subscriber;
 use CmsIr\Post\Model\Post;
 use CmsIr\Product\Model\Client;
 use CmsIr\Product\Model\Product;
+use CmsIr\Product\Model\Realization;
 use Zend\Db\Sql\Predicate\In;
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Db\Sql\Predicate\PredicateSet;
@@ -164,7 +165,40 @@ class PageController extends AbstractActionController
                     $category = $this->getCategoryTable()->getOneBy(array('id' => $categoryId));
                     $product->setCategory($category->getName());
 
+                    $realizations = $this->getProductTable()->getBy(array('realization_id' => $realizationId));
+
+                    /* @var $oneRealization Realization */
+                    $productPagination = array();
+                    foreach($realizations as $oneRealization)
+                    {
+                        $oneRealizationId = $oneRealization->getId();
+                        if($productId !==  $oneRealizationId)
+                        {
+                            if($oneRealizationId < $productId)
+                            {
+                                $productPagination['prev'] = $oneRealization->getSlug();
+                            }
+
+                        }
+                    }
+
+                    foreach($realizations as $oneRealization)
+                    {
+                        $oneRealizationId = $oneRealization->getId();
+                        if($productId !==  $oneRealizationId)
+                        {
+
+                            if($oneRealizationId > $productId)
+                            {
+                                $productPagination['next'] = $oneRealization->getSlug();
+                                break;
+                            }
+
+                        }
+                    }
+
                     $viewParams['post'] = $post;
+                    $viewParams['productPagination'] = $productPagination;
                     $viewParams['product'] = $product;
                     $viewParams['productFiles'] = $productFiles;
                 } else
@@ -551,6 +585,7 @@ class PageController extends AbstractActionController
         foreach($products as $product)
         {
             $name = $product->getName();
+            $productId = $product->getId();
             $filename = $product->getMainPhoto();
             $realizationId = $product->getRealizationId();
             $categoryId = $product->getCategoryId();
@@ -559,9 +594,9 @@ class PageController extends AbstractActionController
             $category = $this->getCategoryTable()->getOneBy(array('id' => $categoryId));
 
             $template .= "<li class='cbp-item " . $categoryId . "'>";
-            $template .= "<a href='#' class='cbp-caption cbp-singlePageInline' data-title='" .$name."'>";
+            $template .= "<a href='". $productId ."' class='cbp-caption cbp-singlePageInline' data-title='" .$name."'>";
             $template .= "<div class='cbp-caption-defaultWrap GrayScale'>";
-            $template .= "<img src='thumb/product/373x273/". $filename ."' alt='". $name . "'>";
+            $template .= "<img src='/thumb/product/373x273/". $filename ."' alt='". $name . "'>";
             $template .= "</div>";
             $template .= "<div class='cbp-caption-activeWrap'><div class='cbp-l-caption-alignLeft'><div class='cbp-l-caption-body'>";
             $template .= "<div class='cbp-l-caption-title'>" .$name."</div>";

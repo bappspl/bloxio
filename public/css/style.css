@@ -1,74 +1,3 @@
-/**
-==============================================================
- * Sentir - Responsive admin & dashboard template
- * Version 	1.2.0
- * Release	July 21, 2014
-==============================================================
-**/
-
-
-/**
-==================
-TABLE OF CONTENT
-==================
-MAIN LAYOUT
-	LOGIN, FORGOT PASS, REGISTER AND LOCK SCREEN
-	NAVBAR
-	TOP MAIN NAVIGATION
-	SIDEBAR
-	FOOTER
-CSS ELEMENTS
-	BOOTSTRAP CAROUSEL
-	SINGLE OWL CAROUSEL
-	FULL CALENDAR
-	THE BOX
-	TOGGLE SWITCH
-	TYPOGRAPY
-	BREADCRUMB
-	PROGRESS BAR
-	ICHECK
-	INPUT FILE
-	PANEL
-	MODAL
-	LIST GROUP
-	MEDIA
-	JUMBOTRON
-	THUMBNAIL
-	MASONRY
-	PAGINATION
-	TABLE
-	FORM
-	DROPDOWN
-	BUTTON
-	ALERT
-	LABEL AND BADGE
-	NAV
-	NAVBAR
-	3RD PARTIES
-	FONT AWESOME
-	MAGNIFIC POPUP
-	OWL CAROUSEL
-	RESPONSIVE IFRAME
-	JQUERY FLOT
-	EASY PIE CHART
-	PRICING TABLE
-	SEARCH PAGE
-	MAIL APPS
-	BLOG APPS
-	SOCIAL APPS
-	STORE APPS
-	TILES
-	CHART WIDGET
-	TASK LIST
-	WEATHER ICON SVG
-	REAL ESTATE APPS
-	MEDIA LIBRARY
-	INVOICE
-	BACK TO TOP
-	ICON SHOWCASE
-**/
-
-
 @import url(http://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700);
 body{
 	background: #fff;
@@ -101,18 +30,6 @@ h1.less-distance,h2.less-distance,h3.less-distance,h4.less-distance,h5.less-dist
     height: 34px;
 }
 
-/**
-+++++++++++++++++++++++++++++++++++++++++++
-MAIN LAYOUT
-+++++++++++++++++++++++++++++++++++++++++++
-**/
-
-
-/**
-----------------------------------------------
-LOGIN, FORGOT PASS, REGISTER AND LOCK SCREEN
-----------------------------------------------
-**/
 body.login{
 	background: #37BC9B;
 	padding: 0;
